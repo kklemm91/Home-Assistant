@@ -9,7 +9,7 @@ homeassistant:
   customize_glob: !include customize_glob.yaml
   packages: !include_dir_named packages
 
-automation: !include automation.yaml
+automation: !include automations.yaml
 binary_sensor: !include binary_sensor.yaml
 camera: !include camera.yaml
 device_tracker: !include device_tracker.yaml
@@ -32,7 +32,7 @@ discovery:
 frontend:
 updater:
 config:
-map:
+#map:
 sun:
 shopping_list:
 

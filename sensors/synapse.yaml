@@ -14,18 +14,12 @@
 
 - platform: sonarr
   api_key: !secret sonarr_api_key
-  monitored_conditions:
-    - series
-    - upcoming
-    - queue
+  monitored_conditions: upcoming
   days: 7
   scan_interval: 600
 
 - platform: radarr
   api_key: !secret radarr_api_key
-  monitored_conditions:
-    - movies
-    - upcoming
-    - status
+  monitored_conditions: upcoming
   days: 7
   scan_interval: 600

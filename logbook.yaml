@@ -5,7 +5,7 @@ include:
     - sensor.deliveries_today
     - sensor.current_version
     - sensor.kklemmduckdnsorg
-    - media_player.kodi
+    - light.lightpack
     - sun.sun
     - sensor.moon
     - scene.all_off
