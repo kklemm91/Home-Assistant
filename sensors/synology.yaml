@@ -4,6 +4,7 @@
   password: !secret http_password
   monitored_conditions:
     - volume_percentage_used
+  scan_interval: 3600
 
 - platform: transmission
   name: Transmission

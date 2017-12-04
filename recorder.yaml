@@ -7,14 +7,10 @@ exclude:
     - camera
     - zone
   entities:                      
-    - sensor.current_version
-    - sensor.ipv4_address_eth0
-    - sensor.kklemmduckdnsorg 
     - sensor.since_last_boot  
     - sensor.cpu_used
     - sensor.cpu_load_total
     - sensor.transmission_status
-    - sensor.moon
     - sensor.packages_in_transit
     - sensor.sonarr_upcoming
     - sensor.radarr_upcoming

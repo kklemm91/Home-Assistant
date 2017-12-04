@@ -1,5 +1,6 @@
 - platform: google_travel_time
   name: His Commute
+  scan_interval: 60
   api_key: !secret google_api_key
   origin: !secret home_address
   destination: !secret his_work_address
@@ -8,6 +9,7 @@
 
 - platform: google_travel_time
   name: Her Commute
+  scan_interval: 60
   api_key: !secret google_api_key
   origin: !secret home_address
   destination: !secret her_work_address
@@ -16,6 +18,7 @@
 
 - platform: google_travel_time
   name: !secret his_town
+  scan_interval: 60
   api_key: !secret google_api_key
   origin: !secret his_home_address
   destination: !secret home_address
@@ -24,6 +27,7 @@
 
 - platform: google_travel_time
   name: !secret her_town
+  scan_interval: 60
   api_key: !secret google_api_key
   origin: !secret her_home_address
   destination: !secret home_address

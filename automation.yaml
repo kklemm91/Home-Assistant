@@ -35,6 +35,20 @@
     - service: light.turn_off
       entity_id: light.lightpack
 
+- alias: Media player idle
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi
+    from: 'paused'
+    to: 'idle'
+  condition:
+  - condition: state
+    entity_id: media_player.itunes
+    state: 'paused'
+  action:
+    - service: light.turn_off
+      entity_id: light.lightpack
+
 - alias: iTunes started
   trigger:
   - platform: state

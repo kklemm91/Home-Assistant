@@ -2,11 +2,13 @@
   name: 'UPS'
   username: !secret upsmychoice_username
   password: !secret upsmychoice_password
+  scan_interval: 3600
 
 - platform: fedex
   name: 'Fedex'
   username: !secret fedexdeliverymanager_username
   password: !secret fedexdeliverymanager_password
+  scan_interval: 3600
 
 - platform: template
   sensors:

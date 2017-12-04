@@ -10,13 +10,22 @@
 - platform: dnsip
   hostname: kklemm.duckdns.org
   resolver: 8.8.8.8
+  scan_interval: 3600
 
 - platform: sonarr
   api_key: !secret sonarr_api_key
-  monitored_conditions: upcoming
+  monitored_conditions:
+    - series
+    - upcoming
+    - queue
   days: 7
+  scan_interval: 600
 
 - platform: radarr
   api_key: !secret radarr_api_key
-  monitored_conditions: upcoming
+  monitored_conditions:
+    - movies
+    - upcoming
+    - status
   days: 7
+  scan_interval: 600

@@ -57,6 +57,8 @@ light.entry:
   icon: mdi:ceiling-light
 light.laundry:
   icon: mdi:ceiling-light
+sensor.laundry_temperature:
+  friendly_name: Indoor Temp
 sensor.iss:
   icon: mdi:satellite-variant
 binary_sensor.aurora_visibility:
