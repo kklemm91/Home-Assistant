@@ -1,0 +1,9 @@
+- platform: itunes
+  host: !secret fractal_wifi_ip
+
+- platform: kodi
+  name: Kodi  
+  host: !secret synapse_ip
+
+# - platform: vlc
+#   name: VLC

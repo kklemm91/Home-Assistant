@@ -1,0 +1,308 @@
+- alias: Media player started
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi
+    to: 'playing'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.living_dim
+    - service: lightpack.set_profile
+      data_template:
+        profile: >
+          {% if states.media_player.kodi.attributes['media_title'] != '' %}
+            Dim
+          {% else %}
+            Blackhawks
+          {% endif %}
+
+- alias: Media player stopped
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi
+    from: 'playing'
+    to: 'paused'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.living_on
+    - service: light.turn_off
+      entity_id: light.lightpack
+
+- alias: iTunes started
+  trigger:
+  - platform: state
+    entity_id: media_player.itunes
+    to: 'playing'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+    - service: lightpack.set_profile
+      data:
+        profile: Rainbow
+
+- alias: iTunes stopped
+  trigger:
+  - platform: state
+    entity_id: media_player.itunes
+    from: 'playing'
+    to: 'paused'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+    - service: light.turn_off
+      entity_id: light.lightpack
+
+- alias: Notify package delivery
+  trigger:
+    platform: state
+    entity_id: sensor.deliveries_today
+  condition:
+  - condition: template
+    value_template: '{{trigger.to_state.state|int > trigger.from_state.state|int}}'
+  action:
+    service: !secret his_notify
+    data:
+      message: A package was just delivered
+
+- alias: Failed login
+  trigger:
+  - platform: state
+    entity_id: persistent_notification.httplogin
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state != "None" }}'
+  action:
+  - service: !secret his_notify
+    data:
+      title: Failed Login
+      message: '{{ trigger.to_state.state }}'
+
+- alias: He sleeps
+  trigger:
+  - platform: state
+    entity_id: !secret his_phone_state
+    to: 'Charging'
+  condition:
+  - condition: time
+    after: '22:00:00'
+    before: '02:00:00'
+  - condition: state
+    entity_id: sensor.his_status
+    state: Home
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.his_status_dropdown
+      option: Sleeping
+
+- alias: Living light control
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:30:00
+  - platform: state
+    entity_id: group.all_devices
+    to: home
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: home
+  - condition: time
+    after: '12:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_on
+
+- alias: Office light control
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -01:30:00
+  - platform: state
+    entity_id: group.all_devices
+    to: home
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: home
+  - condition: time
+    after: '12:00:00'
+    before: '23:59:59'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.office_on
+
+- alias: Bedroom light control
+  trigger:
+  - platform: sun
+    event: sunset
+  - platform: state
+    entity_id: group.all_devices
+    to: home
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: home
+  - condition: time
+    after: '17:00:00'
+    before: '22:00:00'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.bedroom_on
+
+- alias: Go to bed light control
+  trigger:
+  - platform: state
+    entity_id: input_select.his_status_dropdown
+    to: Sleeping
+  - platform: state
+    entity_id: input_select.her_status_dropdown
+    to: Sleeping
+  action:
+  - service: scene.turn_on
+    data_template:
+      entity_id: >
+        {% if states.input_select.his_status_dropdown.state == states.input_select.her_status_dropdown.state %}
+          scene.last_in_bed
+        {% else %}
+          scene.first_in_bed
+        {% endif %}
+
+- alias: House empty light control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    to: Away
+  - platform: state
+    entity_id: sensor.her_status
+    to: Away 
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: not_home
+  action:
+  - service: scene.turn_on
+    entity_id: scene.all_off
+
+- alias: Mark person as awake
+  trigger:
+  - platform: state
+    entity_id: input_select.his_status_dropdown
+    to: Sleeping
+    for:
+      minutes: 780
+  - platform: state
+    entity_id: input_select.her_status_dropdown
+    to: Sleeping
+    for:
+      minutes: 780
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'input_select.his_status_dropdown' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Home
+
+- alias: Mark person as home
+  trigger:
+  - platform: state
+    entity_id: group.his_iphone
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.her_iphone
+    from: not_home
+    to: home
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'group.his_iphone' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Home
+
+- alias: Mark person as just left
+  trigger:
+  - platform: state
+    entity_id: group.his_iphone
+    from: home
+    to: not_home
+  - platform: state
+    entity_id: device_tracker.her_iphone
+    from: home
+    to: not_home
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'group.his_iphone' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Just Left
+
+- alias: Mark person as away
+  trigger:
+  - platform: state
+    entity_id: input_select.his_status_dropdown
+    to: Just Left
+    for:
+      minutes: 10
+  - platform: state
+    entity_id: input_select.her_status_dropdown
+    to: Just Left
+    for:
+      minutes: 10
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'input_select.his_status_dropdown' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Away
+
+- alias: Mark person as extended away
+  trigger:
+  - platform: state
+    entity_id: input_select.his_status_dropdown
+    to: Away
+    for:
+      hours: 24
+  - platform: state
+    entity_id: input_select.her_status_dropdown
+    to: Away
+    for:
+      hours: 24
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'input_select.his_status_dropdown' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Extended Away

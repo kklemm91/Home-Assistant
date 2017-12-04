@@ -1,0 +1,8 @@
+- platform: template
+  sensors:
+    his_status:
+      value_template: '{{ states.input_select.his_status_dropdown.state }}'
+      friendly_name: !secret his_name
+    her_status:
+      value_template: '{{ states.input_select.her_status_dropdown.state }}'
+      friendly_name: !secret her_name

@@ -1,0 +1,36 @@
+- name: Home
+  icon: mdi:people
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  radius: !secret zone_radius
+
+- name: Neighborhood
+  icon: mdi:city
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  radius: !secret neighborhood_radius
+  passive: true
+
+- name: His Home
+  icon: mdi:home
+  latitude: !secret his_home_latitude
+  longitude: !secret his_home_longitude
+  radius: !secret zone_radius
+
+- name: His Work
+  icon: mdi:radio
+  latitude: !secret his_work_latitude
+  longitude: !secret his_work_longitude
+  radius: !secret work_zone_radius
+
+- name: Her Home
+  icon: mdi:home-outline
+  latitude: !secret her_home_latitude
+  longitude: !secret her_home_longitude
+  radius: !secret zone_radius
+
+- name: Her Work
+  icon: mdi:bank
+  latitude: !secret her_work_latitude
+  longitude: !secret her_work_longitude
+  radius: !secret work_zone_radius

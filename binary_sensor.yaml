@@ -1,0 +1,9 @@
+- platform: iss
+  show_on_map: True
+
+- platform: aurora
+
+- platform: workday
+  country: US
+  state: IL
+  

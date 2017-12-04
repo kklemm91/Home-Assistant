@@ -1,0 +1,12 @@
+include:
+  entities:
+    - device_tracker.his_iphone
+    - device_tracker.her_iphone
+    - sensor.deliveries_today
+    - group.hallway
+    - group.living
+    - group.ang
+    - group.computer
+    - group.bed_lights
+    - switch.fan
+    - sun.sun

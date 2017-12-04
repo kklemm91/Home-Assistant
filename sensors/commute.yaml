@@ -1,0 +1,31 @@
+- platform: google_travel_time
+  name: His Commute
+  api_key: !secret google_api_key
+  origin: !secret home_address
+  destination: !secret his_work_address
+  options:
+    mode: walking
+
+- platform: google_travel_time
+  name: Her Commute
+  api_key: !secret google_api_key
+  origin: !secret home_address
+  destination: !secret her_work_address
+  options:
+    mode: transit
+
+- platform: google_travel_time
+  name: !secret his_town
+  api_key: !secret google_api_key
+  origin: !secret his_home_address
+  destination: !secret home_address
+  options:
+    mode: driving
+
+- platform: google_travel_time
+  name: !secret her_town
+  api_key: !secret google_api_key
+  origin: !secret her_home_address
+  destination: !secret home_address
+  options:
+    mode: driving

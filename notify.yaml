@@ -1,0 +1,3 @@
+- platform: ios
+  name: iOS
+  target: !secret ios_api_key

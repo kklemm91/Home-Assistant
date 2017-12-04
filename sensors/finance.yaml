@@ -1,0 +1,10 @@
+# - platform: yahoo_finance
+#   symbols:
+#     - MSI
+#     - VFIFX
+
+- platform: coinmarketcap
+  currency: bitcoin
+
+- platform: coinmarketcap
+  currency: ethereum

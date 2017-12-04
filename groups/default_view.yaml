@@ -1,0 +1,132 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.presence
+    - group.office
+    - group.living
+    - group.bedroom
+    - group.hallway
+
+presence:                            
+  name: Location                     
+  view: no                           
+  icon: mdi:account                  
+  entities:      
+    - input_select.his_status_dropdown                    
+    - input_select.her_status_dropdown
+
+computer:
+  name: Computer
+  view: no
+  icon: mdi:desktop-classic
+  entities:
+    - light.office_left
+    - light.office_right
+
+office_corner:
+  name: Office Corner
+  view: no
+  icon: mdi:flower
+  entities:
+    - light.her_desk
+    - light.her_corner
+    - light.her_closet
+
+office:
+  name: Office
+  view: no
+  icon: mdi:desktop-classic
+  control: hidden
+  entities:
+    - group.computer
+    - group.office_corner
+
+lightpack:
+  name: Lightpack
+  view: no
+  icon: mdi:television-guide
+  entities:
+    - light.lightpack
+    - script.lightpack_dim
+    - script.lightpack_rainbow
+    - script.lightpack_blackhawks
+
+tv:
+  name: Television
+  view: no
+  icon: mdi:television
+  entities:
+    - light.tv_left
+    - light.tv_mid
+    - light.tv_right
+
+kitchen:
+  name: Kitchen
+  view: no
+  icon: mdi:food-croissant
+  entities:
+    - light.kitchen_left
+    - light.kitchen_mid
+    - light.kitchen_right
+
+living:
+  name: Living Room
+  view: no
+  icon: mdi:home
+  control: hidden
+  entities:
+    - group.kitchen
+    - switch.corner
+    - group.lightpack
+    - group.tv
+
+bed_lights:
+  name: Bedroom
+  view: no
+  icon: mdi:lightbulb
+  entities:
+    - light.his_side
+    - light.her_side
+
+bedroom:
+  name: Bedroom
+  view: no
+  icon: mdi:lightbulb
+  control: hidden
+  entities:
+    - group.bed_lights
+    - switch.fan
+
+entry:
+  name: Entry
+  view: no
+  icon: mdi:door
+  entities:
+    - light.entry_front
+    - light.entry_back
+    - sensor.entry_temperature
+
+laundry:
+  name: Laundry
+  view: no
+  icon: mdi:washing-machine
+  entities:
+    - light.laundry_front
+    - light.laundry_back
+    - sensor.laundry_temperature
+
+hallway:
+  name: Hallway
+  view: no
+  icon: mdi:washing-machine
+  entities:
+    - group.entry
+    - group.laundry
+
+his_iphone:
+  name: !secret his_name
+  view: no
+  entities:
+    - device_tracker.his_iphone
+    - device_tracker.his_iphone_bt

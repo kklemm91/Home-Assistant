@@ -1,0 +1,8 @@
+- platform: hue
+  host: !secret hue_ip
+  allow_unreachable: true
+
+- platform: lightpack
+  host: !secret fractal_wifi_ip
+  port: !secret lightpack_port
+  api_key: !secret lightpack_api_key

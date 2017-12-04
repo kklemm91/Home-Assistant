@@ -1,0 +1,12 @@
+- platform: nmap_tracker
+  track_new_devices: false
+  home_interval: 30
+  hosts: 192.168.1.0/24
+
+- platform: bluetooth_tracker
+
+# - platform: icloud
+#   username: !secret icloud_username
+#   password: !secret icloud_password
+#   name: !secret his_name
+#   track_new_devices: no

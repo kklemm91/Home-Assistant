@@ -1,0 +1,22 @@
+- platform: version
+
+- platform: systemmonitor
+  resources:
+    - type: processor_use
+    - type: disk_use_percent
+      arg: /home
+    - type: since_last_boot
+
+- platform: dnsip
+  hostname: kklemm.duckdns.org
+  resolver: 8.8.8.8
+
+- platform: sonarr
+  api_key: !secret sonarr_api_key
+  monitored_conditions: upcoming
+  days: 7
+
+- platform: radarr
+  api_key: !secret radarr_api_key
+  monitored_conditions: upcoming
+  days: 7

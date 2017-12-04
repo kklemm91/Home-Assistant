@@ -1,0 +1,15 @@
+include:
+  entities:
+    - sensor.his_status
+    - sensor.her_status
+    - group.hallway
+    - group.living
+    - group.office
+    - group.bed_lights
+    - sensor.weather_current
+    - sun.sun
+    - sensor.laundry_temperature
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_daily_high_temperature
+    - sensor.dark_sky_daily_low_temperature
+    - sensor.bitcoin

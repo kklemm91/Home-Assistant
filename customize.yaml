@@ -1,0 +1,129 @@
+group.default_view:
+  order: 1
+group.earth_view:
+  order: 2
+group.server_view:
+  order: 3
+sensor.packages_in_transit:
+  icon: mdi:truck-delivery
+sensor.deliveries_today:
+  icon: mdi:package-variant
+  unit_of_measurement: packages
+sensor.vfifx:
+  unit_of_measurement: USD
+  icon: mdi:chart-areaspline
+sensor.msi:
+  unit_of_measurement: USD
+  icon: mdi:chart-line
+sensor.bitcoin:
+  icon: mdi:currency-btc
+sensor.ethereum:
+  icon: mdi:diamond
+sensor.dark_sky_summary:
+  icon: mdi:weather-cloudy
+  friendly_name: Summary
+sensor.dark_sky_cloud_coverage:
+  friendly_name: Cloud Coverage
+sensor.dark_sky_nearest_storm_distance:
+  friendly_name: Nearest Storm
+sensor.weather_temperature:
+  icon: mdi:weather-sunny
+sensor.weather_wind_speed:
+  icon: mdi:weather-windy
+  friendly_name: Wind Speed
+sensor.weather_humidity:
+  icon: mdi:water-percent
+sensor.weather_pressure:
+  icon: mdi:gauge
+sensor.weather_visibility:
+  friendly_name: Visibility
+sensor.solar_angle:
+  icon: mdi:weather-sunset-up
+switch.corner:
+  icon: mdi:ceiling-light
+switch.fan:
+  icon: mdi:fan
+light.his_side:
+  icon: mdi:lightbulb
+light.her_side:
+  icon: mdi:lightbulb-outline
+light.her_corner:
+  friendly_name: Her Corner
+  icon: mdi:spotlight
+light.her_closet:
+  friendly_name: Her Closet
+  icon: mdi:alarm-light
+light.entry:
+  icon: mdi:ceiling-light
+light.laundry:
+  icon: mdi:ceiling-light
+sensor.iss:
+  icon: mdi:satellite-variant
+binary_sensor.aurora_visibility:
+  icon: mdi:waves
+sensor.usps_mail:
+  unit_of_measurement: packages
+sensor.current_version:
+  friendly_name: Home Assistant
+sensor.cpu_use:
+  friendly_name: Pi CPU Usage
+  icon: mdi:chip
+sensor.received_eth0:
+  icon: mdi:arrow-down
+sensor.sent_eth0:
+  icon: mdi:arrow-up
+sensor.since_last_boot:
+  friendly_name: Uptime
+sensor.ipv4_address_eth0:
+  friendly_name: IPv6
+  icon: mdi:numeric-6-box-outline
+sensor.kklemmduckdnsorg:
+  friendly_name: IPv4
+  icon: mdi:numeric-4-box-outline
+sensor.speedtest_ping:
+  friendly_name: Ping
+sensor.cpu_load_total:
+  friendly_name: Syno CPU Usage
+sensor.memory_usage_real:
+  friendly_name: Memory Usage
+sensor.volume_used_volume_1:
+  friendly_name: Volume 1 Usage
+  icon: mdi:harddisk
+sensor.volume_used_volume_2:
+  friendly_name: Volume 2 Usage
+  icon: mdi:harddisk
+sensor.transmission_status:
+  friendly_name: Status
+  icon: mdi:hexagon-multiple
+sensor.transmission_up_speed:
+  friendly_name: Upload Rate
+  icon: mdi:arrow-up-bold-hexagon-outline
+sensor.transmission_down_speed:
+  friendly_name: Download Rate
+  icon: mdi:arrow-down-bold-hexagon-outline
+sensor.dark_sky_daily_high_temperature:
+  friendly_name: Daily High Temp
+  icon: mdi:chevron-up
+sensor.dark_sky_daily_low_temperature:
+  friendly_name: Daily Low Temp
+  icon: mdi:chevron-down
+sensor.dark_sky_humidity:
+  friendly_name: Humidity
+sensor.dark_sky_precip:
+  friendly_name: Precipitation
+sensor.dark_sky_wind_speed:
+  friendly_name: Wind Speed
+sensor.dark_sky_wind_bearing:
+  friendly_name: Wind Direction
+sensor.dark_sky_precip_intensity:
+  friendly_name: Precipitation Intensity
+sensor.dark_sky_temperature:
+  friendly_name: Temp
+sensor.dark_sky_precip_probability:
+  friendly_name: Precipitation Chance
+sensor.dark_sky_visibility:
+  friendly_name: Visibility
+sensor.disk_used_home:
+  friendly_name: Disk Usage
+sensor.radarr_upcoming:
+  icon: mdi:movie

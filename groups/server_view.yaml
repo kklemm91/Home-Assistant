@@ -1,0 +1,43 @@
+server_view:
+  name: Server
+  view: yes
+  icon: mdi:server
+  entities:
+    - updater.updater
+    - group.synapse
+    - group.synology
+    - group.options
+    - configurator.philips_hue
+
+synapse:
+  name: Synapse
+  view: no
+  icon: mdi:arrow-up-bold-hexagon-outline
+  entities:
+    - sensor.current_version
+    - sensor.since_last_boot
+    - sensor.kklemmduckdnsorg
+    - sensor.cpu_used
+    - sensor.disk_used_home
+
+synology:
+  name: Synology
+  view: no
+  icon: mdi:server
+  entities:
+    - sensor.volume_used_volume_1
+    - sensor.volume_used_volume_2
+    - sensor.sonarr_upcoming
+    - sensor.radarr_upcoming
+    - history_graph.transmission
+
+options:
+  name: Options
+  view: no
+  icon: mdi:settings
+  control: hidden
+  entities:
+    - automation.living_light_control
+    - automation.office_light_control
+    - automation.bedroom_light_control
+    - automation.house_empty_light_control

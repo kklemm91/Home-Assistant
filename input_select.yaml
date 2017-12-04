@@ -1,0 +1,19 @@
+his_status_dropdown:
+  name: !secret his_name
+  options:
+    - Sleeping
+    - Home
+    - Just Left
+    - Away
+    - Extended Away
+  initial: Home
+
+her_status_dropdown:
+  name: !secret her_name
+  options:
+    - Sleeping
+    - Home
+    - Just Left
+    - Away
+    - Extended Away
+  initial: Home

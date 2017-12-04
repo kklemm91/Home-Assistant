@@ -1,0 +1,26 @@
+purge_interval: 2                                 
+purge_keep_days: 7
+exclude:                                          
+  domains:                                        
+    - automation
+    - binary_sensor
+    - camera
+    - zone
+  entities:                      
+    - sensor.current_version
+    - sensor.ipv4_address_eth0
+    - sensor.kklemmduckdnsorg 
+    - sensor.since_last_boot  
+    - sensor.cpu_used
+    - sensor.cpu_load_total
+    - sensor.transmission_status
+    - sensor.moon
+    - sensor.packages_in_transit
+    - sensor.sonarr_upcoming
+    - sensor.radarr_upcoming
+    - sensor.his_commute
+    - sensor.her_commute
+    - sensor.dark_sky_cloud_coverage
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_visibility
+    - sensor.dark_sky_wind_bearing

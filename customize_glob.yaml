@@ -1,0 +1,8 @@
+'*.laundry*':
+  icon: mdi:washing-machine
+
+'*.entry*':
+  icon: mdi:door
+
+'*_temperature':
+  icon: mdi:thermometer

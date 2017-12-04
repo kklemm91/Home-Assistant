@@ -1,0 +1,28 @@
+lightpack_rainbow:
+  alias: Rainbow
+  sequence:
+  - data:
+      profile: Rainbow
+    service: lightpack.set_profile
+
+lightpack_dim:
+  alias: Dim
+  sequence:
+  - data:
+      profile: Dim
+    service: lightpack.set_profile
+
+lightpack_blackhawks:
+  alias: Blackhawks
+  sequence:
+  - data:
+      profile: Blackhawks
+    service: lightpack.set_profile
+
+group_visibility:
+  alias: Group Visibility
+  sequence:
+    - service: group.set_visibility
+      data_template:
+        entity_id: '{{ entity_id }}'
+        visible: '{{ is_state(cond, visible_state) }}'

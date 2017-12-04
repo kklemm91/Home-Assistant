@@ -1,0 +1,56 @@
+earth_view:
+  name: Earth
+  view: yes
+  icon: mdi:earth
+  entities:
+    - group.weather
+    - group.sky
+    - group.commute
+    - group.visit
+    - group.finance
+    - group.packages
+#    - history_graph.iphone_battery
+
+weather:
+  name: Today's Weather
+  view: no
+  icon: mdi:weather-sunny
+  entities:
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_humidity
+    - sensor.dark_sky_visibility
+    - sensor.dark_sky_cloud_coverage
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_nearest_storm_distance
+    - sensor.dark_sky_wind_speed
+    - sensor.wind_dir
+    - camera.radar
+
+sky:
+  name: Sky
+  view: no
+  icon: mdi:white-balance-sunny
+  entities:
+    - sun.sun
+    - sensor.solar_angle
+    - sensor.moon
+
+finance:
+  name: Markets
+  view: no
+  entities:
+    - sensor.bitcoin
+    - sensor.ethereum
+    - sensor.omisego
+    - sensor.msi
+    - sensor.vfifx
+
+packages:
+  name: Packages
+  view: no
+  icon: mdi:package-variant-closed
+  entities:
+    - sensor.deliveries_today
+    - sensor.packages_in_transit
+    - camera.usps_mail
