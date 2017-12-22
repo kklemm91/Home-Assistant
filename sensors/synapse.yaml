@@ -8,7 +8,7 @@
     - type: since_last_boot
 
 - platform: dnsip
-  hostname: kklemm.duckdns.org
+  hostname: !secret dns_name
   resolver: 8.8.8.8
   scan_interval: 3600
 

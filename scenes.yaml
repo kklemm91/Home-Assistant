@@ -34,13 +34,18 @@
 - name: First in bed
   entities:
     group.bed_lights: off
-    switch.fan: on
+    #switch.fan: on
 
 - name: Last in bed
   entities:
     group.living: off
     group.office: off
-    group.bed_lights: off
+
+- name: Good morning
+  entities:
+    light.her_closet: on
+    group.computer: on
+    switch.fan: off
 
 - name: All off
   entities:

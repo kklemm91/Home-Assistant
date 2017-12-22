@@ -4,4 +4,4 @@
 
 - platform: tplink
   name: Corner
-  host: !secret corner_switch_ip
+  host: !secret corner_lamp_ip

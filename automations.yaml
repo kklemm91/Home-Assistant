@@ -9,16 +9,16 @@
     entity_id: sun.sun
     state: 'below_horizon'
   action:
-    - service: scene.turn_on
-      entity_id: scene.living_dim
-    - service: lightpack.set_profile
-      data_template:
-        profile: >
-          {% if states.media_player.kodi.attributes['media_title'] != '' %}
-            Dim
-          {% else %}
-            Blackhawks
-          {% endif %}
+  - service: scene.turn_on
+    entity_id: scene.living_dim
+  - service: lightpack.set_profile
+    data_template:
+      profile: >
+        {% if states.media_player.kodi.attributes['media_title'] != '' %}
+          Dim
+        {% else %}
+          Blackhawks
+        {% endif %}
 
 - id: media_stopped
   alias: Media player stopped
@@ -32,10 +32,10 @@
     entity_id: sun.sun
     state: 'below_horizon'
   action:
-    - service: scene.turn_on
-      entity_id: scene.living_on
-    - service: light.turn_off
-      entity_id: light.lightpack
+  - service: scene.turn_on
+    entity_id: scene.living_on
+  - service: light.turn_off
+    entity_id: light.lightpack
 
 - id: media_idle
   alias: Media player idle
@@ -49,8 +49,8 @@
     entity_id: media_player.itunes
     state: 'paused'
   action:
-    - service: light.turn_off
-      entity_id: light.lightpack
+  - service: light.turn_off
+    entity_id: light.lightpack
 
 - id: music_started
   alias: iTunes started
@@ -63,9 +63,9 @@
     entity_id: sun.sun
     state: 'below_horizon'
   action:
-    - service: lightpack.set_profile
-      data:
-        profile: Rainbow
+  - service: lightpack.set_profile
+    data:
+      profile: Rainbow
 
 - id: music_stopped
   alias: iTunes stopped
@@ -82,6 +82,57 @@
     - service: light.turn_off
       entity_id: light.lightpack
 
+- id: blackhawks_on
+  alias: Blackhawks are playing
+  trigger:
+  - platform: state
+    entity_id: calendar.blackhawks
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: sensor.his_status
+        state: Home
+      - condition: state
+        entity_id: sensor.her_status
+        state: Home
+  action:
+  - service: !secret his_notify
+    data_template:
+      message: '{{ states.calendar.blackhawks.attributes.message }}'
+  - service: lightpack.set_profile
+    data:
+      profile: Blackhawks
+
+- id: blackhawks_off
+  alias: Blackhawks are done playing
+  trigger:
+  - platform: state
+    entity_id: calendar.blackhawks
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: light.lightpack
+    state: 'on'
+  action:
+  - service: light.turn_off
+    entity_id: light.lightpack
+
+- id: holiday
+  alias: Holiday
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition:
+  - condition: state
+    entity_id: calendar.holidays
+    state: 'on'
+  action:
+  - service: !secret his_notify
+    data_template:
+      message: Today is {{ states.calendar.holidays.attributes.message }}
+
 - id: package_delivered
   alias: Notify package delivery
   trigger:
@@ -91,120 +142,148 @@
   - condition: template
     value_template: '{{trigger.to_state.state|int > trigger.from_state.state|int}}'
   action:
-    service: !secret his_notify
+  - service: !secret his_notify
     data:
       message: A package was just delivered
 
-- id: login_failed
-  alias: Failed login
+- id: welcome
+  alias: Welcome light control
   trigger:
   - platform: state
-    entity_id: persistent_notification.httplogin
+    entity_id: light.entry_front
+    from: 'off'
+    to: 'on'
   condition:
-  - condition: template
-    value_template: '{{ trigger.to_state.state != "None" }}'
-  action:
-  - service: !secret his_notify
-    data:
-      title: Failed Login
-      message: '{{ trigger.to_state.state }}'
-
-- id: he_sleeps
-  alias: He sleeps
-  trigger:
-  - platform: state
-    entity_id: !secret his_phone_state
-    to: 'Charging'
-  condition:
-  - condition: time
-    after: '22:00:00'
-    before: '02:00:00'
   - condition: state
     entity_id: sensor.his_status
-    state: Home
-  action:
-  - service: input_select.select_option
-    data:
-      entity_id: input_select.his_status_dropdown
-      option: Sleeping
-
-- id: living_light
-  alias: Living light control
-  trigger:
-  - platform: sun
-    event: sunset
-    offset: -00:30:00
-  - platform: state
-    entity_id: group.all_devices
-    to: home
-  condition:
+    state: Away
   - condition: state
-    entity_id: group.all_devices
-    state: home
+    entity_id: sensor.her_status
+    state: Away
   - condition: time
-    after: '12:00:00'
+    after: '15:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_on
+  - service: scene.turn_on
+    entity_id: scene.bedroom_on
+  - service: scene.turn_on
+    entity_id: scene.office_on
+  - service: logbook.log
+
+- id: living_light_presence
+  alias: Living light presence control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    from: Away
+    to: Home
+  - platform: state
+    entity_id: sensor.her_status
+    from: Away
+    to: Home
+  condition:
+  - condition: time
+    after: '15:00:00'
     before: '23:59:59'
   action:
   - service: scene.turn_on
     entity_id: scene.living_on
 
-- id: office_light
-  alias: Office light control
+- id: living_light_timer
+  alias: Living light timer control
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:30:00
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: sensor.his_status
+        state: Home
+      - condition: state
+        entity_id: sensor.her_status
+        state: Home
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_on
+
+- id: office_light_presence
+  alias: Office light presence control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    from: Away
+    to: Home
+  - platform: state
+    entity_id: sensor.her_status
+    from: Away
+    to: Home
+  condition:
+  - condition: time
+    after: '15:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.office_on
+
+- id: office_light_timer
+  alias: Office light timer control
   trigger:
   - platform: sun
     event: sunset
     offset: -01:30:00
-  - platform: state
-    entity_id: group.all_devices
-    to: home
   condition:
-  - condition: state
-    entity_id: group.all_devices
-    state: home
-  - condition: time
-    after: '12:00:00'
-    before: '23:59:59'
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: sensor.his_status
+        state: Home
+      - condition: state
+        entity_id: sensor.her_status
+        state: Home
   action:
-    - service: scene.turn_on
-      entity_id: scene.office_on
+  - service: scene.turn_on
+    entity_id: scene.office_on
 
-- id: bedroom_light
-  alias: Bedroom light control
+- id: bedroom_light_presence
+  alias: Bedroom light presence control
   trigger:
-  - platform: sun
-    event: sunset
   - platform: state
-    entity_id: group.all_devices
-    to: home
+    entity_id: sensor.his_status
+    from: Away
+    to: Home
+  - platform: state
+    entity_id: sensor.her_status
+    from: Away
+    to: Home
   condition:
-  - condition: state
-    entity_id: group.all_devices
-    state: home
   - condition: time
-    after: '17:00:00'
+    after: '16:00:00'
     before: '22:00:00'
   action:
   - service: scene.turn_on
     entity_id: scene.bedroom_on
 
-- id: go_to_bed
-  alias: Go to bed light control
+- id: bedroom_light_timer
+  alias: Bedroom light timer control
   trigger:
-  - platform: state
-    entity_id: input_select.his_status_dropdown
-    to: Sleeping
-  - platform: state
-    entity_id: input_select.her_status_dropdown
-    to: Sleeping
+  - platform: sun
+    event: sunset
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: sensor.his_status
+        state: Home
+      - condition: state
+        entity_id: sensor.her_status
+        state: Home
   action:
   - service: scene.turn_on
-    data_template:
-      entity_id: >
-        {% if states.input_select.his_status_dropdown.state == states.input_select.her_status_dropdown.state %}
-          scene.last_in_bed
-        {% else %}
-          scene.first_in_bed
-        {% endif %}
+    entity_id: scene.bedroom_on
 
 - id: house_empty
   alias: House empty light control
@@ -214,14 +293,126 @@
     to: Away
   - platform: state
     entity_id: sensor.her_status
-    to: Away 
+    to: Away
   condition:
   - condition: state
-    entity_id: group.all_devices
-    state: not_home
+    entity_id: sensor.his_status
+    state: Away
+  - condition: state
+    entity_id: sensor.her_status
+    state: Away
   action:
   - service: scene.turn_on
     entity_id: scene.all_off
+  - service: !secret his_notify
+    data:
+      message: All lights are off
+
+- id: she_sleeps
+  alias: First to bed
+  trigger:
+  - platform: state
+    entity_id: group.bed_lights
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: time
+    after: '21:00:00'
+    before: '04:00:00'
+  - condition: state
+    entity_id: sensor.her_status
+    state: Home
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.her_status_dropdown
+      option: Sleeping
+
+- id: he_sleeps
+  alias: Last to bed
+  trigger:
+  - platform: state
+    entity_id: group.all_lights
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: time
+    after: '21:00:00'
+    before: '04:00:00'
+  - condition: state
+    entity_id: sensor.his_status
+    state: Home
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.his_status_dropdown
+      option: Sleeping
+
+- id: handle_sleep
+  alias: Handle sleep light control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    to: Sleeping
+  - platform: state
+    entity_id: sensor.her_status
+    to: Sleeping
+  action:
+  - service: scene.turn_on
+    data_template:
+      entity_id: >
+        {% if states.sensor.his_status.state != states.sensor.her_status.state %}
+          scene.first_in_bed
+        {% else %}
+          scene.last_in_bed
+        {% endif %}
+  - service: !secret his_notify
+    data_template:
+      message: >
+        {% if states.sensor.his_status.state != states.sensor.her_status.state %}
+          Angeli has gone to sleep
+        {% else %}
+          You have gone to sleep
+        {% endif %}
+
+- id: work_day
+  alias: Wake up for work
+  trigger:
+  - platform: time
+    at: '07:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.his_status
+            state: Sleeping
+          - condition: state
+            entity_id: sensor.her_status
+            state: Sleeping
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if states.input_select.his_status_dropdown.state == 'Sleeping' %}
+          {% if states.input_select.her_status_dropdown.state == 'Sleeping' %}
+            input_select.his_status_dropdown,input_select.her_status_dropdown
+          {% else %}
+            input_select.his_status_dropdown
+          {% endif %}
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Home
+  - service: scene.turn_on
+    entity_id: scene.good_morning
+  - service: !secret his_notify
+    data:
+      message: Good morning!
 
 - id: person_awake
   alias: Mark person as awake
@@ -251,7 +442,7 @@
   alias: Mark person as home
   trigger:
   - platform: state
-    entity_id: group.his_iphone
+    entity_id: device_tracker.his_iphone
     from: not_home
     to: home
   - platform: state
@@ -262,7 +453,7 @@
   - service: input_select.select_option
     data_template:
       entity_id: >
-        {% if trigger.entity_id == 'group.his_iphone' %}
+        {% if trigger.entity_id == 'device_tracker.his_iphone' %}
           input_select.his_status_dropdown
         {% else %}
           input_select.her_status_dropdown
@@ -273,7 +464,7 @@
   alias: Mark person as just left
   trigger:
   - platform: state
-    entity_id: group.his_iphone
+    entity_id: device_tracker.his_iphone
     from: home
     to: not_home
   - platform: state
@@ -284,7 +475,7 @@
   - service: input_select.select_option
     data_template:
       entity_id: >
-        {% if trigger.entity_id == 'group.his_iphone' %}
+        {% if trigger.entity_id == 'device_tracker.his_iphone' %}
           input_select.his_status_dropdown
         {% else %}
           input_select.her_status_dropdown
@@ -314,27 +505,3 @@
           input_select.her_status_dropdown
         {% endif %}
       option: Away
-
-- id: person_ext_away
-  alias: Mark person as extended away
-  trigger:
-  - platform: state
-    entity_id: input_select.his_status_dropdown
-    to: Away
-    for:
-      hours: 24
-  - platform: state
-    entity_id: input_select.her_status_dropdown
-    to: Away
-    for:
-      hours: 24
-  action:
-  - service: input_select.select_option
-    data_template:
-      entity_id: >
-        {% if trigger.entity_id == 'input_select.his_status_dropdown' %}
-          input_select.his_status_dropdown
-        {% else %}
-          input_select.her_status_dropdown
-        {% endif %}
-      option: Extended Away

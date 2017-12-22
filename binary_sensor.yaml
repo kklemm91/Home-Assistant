@@ -6,4 +6,15 @@
 - platform: workday
   country: US
   state: IL
-  
+
+- platform: ping
+  host: 192.168.1.1
+  name: Router
+
+- platform: ping
+  host: 8.8.8.8
+  name: DNS
+
+- platform: ping
+  host: www.google.com
+  name: Google

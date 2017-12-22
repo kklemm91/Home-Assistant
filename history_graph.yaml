@@ -6,9 +6,9 @@ transmission:
     - sensor.transmission_up_speed
     - sensor.transmission_down_speed
 
-battery:
-  name: iPhone Battery
-  hours_to_show: 24
-  refresh: 300
-  entities:
-    - !secret his_phone_state
+# battery:
+#   name: iPhone Battery
+#   hours_to_show: 24
+#   refresh: 300
+#   entities:
+#     - !secret his_phone_state

@@ -3,10 +3,11 @@ server_view:
   view: yes
   icon: mdi:server
   entities:
-    - updater.updater
     - group.synapse
     - group.synology
-    - group.options
+    - group.home_devices
+    - group.network
+    - group.debug
     - configurator.philips_hue
 
 synapse:
@@ -15,6 +16,7 @@ synapse:
   icon: mdi:arrow-up-bold-hexagon-outline
   entities:
     - sensor.current_version
+    - updater.updater
     - sensor.since_last_boot
     - sensor.kklemmduckdnsorg
     - sensor.cpu_used
@@ -25,19 +27,35 @@ synology:
   view: no
   icon: mdi:server
   entities:
+    - device_tracker.synology
     - sensor.volume_used_volume_1
     - sensor.volume_used_volume_2
     - sensor.sonarr_upcoming
     - sensor.radarr_upcoming
-    - history_graph.transmission
 
-options:
-  name: Options
+home_devices:
+  name: WiFi Devices
   view: no
-  icon: mdi:settings
-  control: hidden
+  icon: mdi:wifi
   entities:
-    - automation.living_light_control
-    - automation.office_light_control
-    - automation.bedroom_light_control
-    - automation.house_empty_light_control
+    - device_tracker.fractal_ethernet
+    - device_tracker.fractal_wifi
+    - device_tracker.echo_dot
+    - device_tracker.printer
+
+network:
+  name: Network
+  view: no
+  icon: mdi:wifi
+  entities:
+    - sensor.router
+    - sensor.dns
+    - sensor.google
+
+debug:
+  name: Debug
+  view: no
+  icon: mdi:gear
+  entities:
+    - input_select.his_status_dropdown
+    - input_select.her_status_dropdown

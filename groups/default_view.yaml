@@ -8,13 +8,13 @@ default_view:
     - group.bedroom
     - group.hallway
 
-presence:                            
-  name: Location                     
-  view: no                           
-  icon: mdi:account                  
-  entities:      
-    - input_select.his_status_dropdown                    
-    - input_select.her_status_dropdown
+presence:
+  name: Location
+  view: no
+  icon: mdi:account
+  entities:
+    - sensor.his_status
+    - sensor.her_status
 
 computer:
   name: Computer
@@ -123,10 +123,3 @@ hallway:
   entities:
     - group.entry
     - group.laundry
-
-his_iphone:
-  name: !secret his_name
-  view: no
-  entities:
-    - device_tracker.his_iphone
-    - device_tracker.his_iphone_bt

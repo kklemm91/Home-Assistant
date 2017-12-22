@@ -19,6 +19,27 @@ sensor.bitcoin:
   icon: mdi:currency-btc
 sensor.ethereum:
   icon: mdi:diamond
+sensor.litecoin:
+  icon: mdi:star-circle
+binary_sensor.google:
+  hidden: true
+sensor.google:
+  friendly_name: 'Google'
+  icon: mdi:google  
+binary_sensor.dns:
+  hidden: true
+sensor.dns:
+  friendly_name: 'DNS'
+  icon: mdi:web
+binary_sensor.router:
+  hidden: true
+sensor.router:
+  friendly_name: 'Router'
+  icon: mdi:router-wireless
+device_tracker.fractal_ethernet:
+  icon: mdi:desktop-classic
+device_tracker.fractal_wifi:
+  icon: mdi:wifi
 sensor.dark_sky_summary:
   icon: mdi:weather-cloudy
   friendly_name: Summary

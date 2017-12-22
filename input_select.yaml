@@ -5,7 +5,6 @@ his_status_dropdown:
     - Home
     - Just Left
     - Away
-    - Extended Away
   initial: Home
 
 her_status_dropdown:
@@ -15,5 +14,4 @@ her_status_dropdown:
     - Home
     - Just Left
     - Away
-    - Extended Away
   initial: Home

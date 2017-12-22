@@ -42,15 +42,15 @@ finance:
   entities:
     - sensor.bitcoin
     - sensor.ethereum
-    - sensor.omisego
-    - sensor.msi
-    - sensor.vfifx
+    - sensor.litecoin
 
 packages:
   name: Packages
   view: no
   icon: mdi:package-variant-closed
   entities:
+    - sensor.ups
+    - sensor.fedex
+    - sensor.usps_packages
     - sensor.deliveries_today
-    - sensor.packages_in_transit
     - camera.usps_mail
