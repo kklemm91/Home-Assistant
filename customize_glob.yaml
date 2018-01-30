@@ -4,5 +4,26 @@
 '*.entry*':
   icon: mdi:door
 
-'*_temperature':
+'*temperature*':
   icon: mdi:thermometer
+
+'*plug':
+  icon: mdi:power-plug
+
+'*google*':
+  icon: mdi:google
+
+'*macbook*':
+  icon: mdi:laptop-mac
+
+'*ipad*':
+  icon: mdi:tablet-ipad
+
+'*iphone*':
+  icon: mdi:cellphone-iphone
+
+'*printer*':
+  icon: mdi:printer
+
+'*wifi*':
+  icon: mdi:wifi

@@ -18,3 +18,17 @@ lightpack_blackhawks:
   - data:
       profile: Blackhawks
     service: lightpack.set_profile
+
+# frontend_weather_alert:
+#   sequence:
+#     - service: persistent_notification.dismiss
+#       data:
+#         notification_id: weather_alert
+#     - service_template: >
+#         {% if states.sensor.pws_alerts.attributes.Message %}
+#           persistent_notification.create
+#         {% endif %}
+#       data_template:
+#         notification_id: weather_alert
+#         message: '{{ states.sensor.pws_alerts.attributes.Message }}'
+#         title: '{{ states.sensor.pws_alerts.attributes.Description }}'

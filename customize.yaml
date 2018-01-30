@@ -23,6 +23,10 @@ sensor.litecoin:
   icon: mdi:star-circle
 binary_sensor.google:
   hidden: true
+sensor.his_status:
+  entity_picture: !secret his_image
+sensor.her_status:
+  entity_picture: !secret her_image
 sensor.google:
   friendly_name: 'Google'
   icon: mdi:google  
@@ -35,11 +39,21 @@ binary_sensor.router:
   hidden: true
 sensor.router:
   friendly_name: 'Router'
-  icon: mdi:router-wireless
+  icon: mdi:ethernet
+device_tracker.synology:
+  icon: mdi:server
+device_tracker.synapse:
+  icon: mdi:video-input-hdmi
+device_tracker.kevins_iphone:
+  friendly_name: !secret his_name
+device_tracker.angelis_iphone:
+  friendly_name: !secret her_name
 device_tracker.fractal_ethernet:
   icon: mdi:desktop-classic
-device_tracker.fractal_wifi:
-  icon: mdi:wifi
+device_tracker.echo_spot:
+  icon: mdi:stop-circle
+device_tracker.google_home:
+  icon: mdi:dots-horizontal-circle
 sensor.dark_sky_summary:
   icon: mdi:weather-cloudy
   friendly_name: Summary
@@ -61,25 +75,18 @@ sensor.weather_visibility:
 sensor.solar_angle:
   icon: mdi:weather-sunset-up
 switch.corner:
-  icon: mdi:ceiling-light
+  icon: mdi:fridge
 switch.fan:
   icon: mdi:fan
-light.his_side:
-  icon: mdi:lightbulb
-light.her_side:
-  icon: mdi:lightbulb-outline
-light.her_corner:
-  friendly_name: Her Corner
-  icon: mdi:spotlight
-light.her_closet:
-  friendly_name: Her Closet
-  icon: mdi:alarm-light
-light.entry:
+light.hallway:
+  icon: mdi:door
+light.kitchen:
   icon: mdi:ceiling-light
-light.laundry:
-  icon: mdi:ceiling-light
-sensor.laundry_temperature:
-  friendly_name: Indoor Temp
+light.tv:
+  friendly_name: Television
+  icon: mdi:television
+light.bedroom:
+  icon: mdi:hotel
 sensor.iss:
   icon: mdi:satellite-variant
 binary_sensor.aurora_visibility:
@@ -88,13 +95,6 @@ sensor.usps_mail:
   unit_of_measurement: packages
 sensor.current_version:
   friendly_name: Home Assistant
-sensor.cpu_use:
-  friendly_name: Pi CPU Usage
-  icon: mdi:chip
-sensor.received_eth0:
-  icon: mdi:arrow-down
-sensor.sent_eth0:
-  icon: mdi:arrow-up
 sensor.since_last_boot:
   friendly_name: Uptime
 sensor.ipv4_address_eth0:
@@ -105,10 +105,6 @@ sensor.kklemmduckdnsorg:
   icon: mdi:numeric-4-box-outline
 sensor.speedtest_ping:
   friendly_name: Ping
-sensor.cpu_load_total:
-  friendly_name: Syno CPU Usage
-sensor.memory_usage_real:
-  friendly_name: Memory Usage
 sensor.volume_used_volume_1:
   friendly_name: Volume 1 Usage
   icon: mdi:harddisk
@@ -116,7 +112,7 @@ sensor.volume_used_volume_2:
   friendly_name: Volume 2 Usage
   icon: mdi:harddisk
 sensor.transmission_status:
-  friendly_name: Status
+  friendly_name: Transmission
   icon: mdi:hexagon-multiple
 sensor.transmission_up_speed:
   friendly_name: Upload Rate
@@ -141,12 +137,18 @@ sensor.dark_sky_wind_bearing:
 sensor.dark_sky_precip_intensity:
   friendly_name: Precipitation Intensity
 sensor.dark_sky_temperature:
-  friendly_name: Temp
+  friendly_name: Temperature
 sensor.dark_sky_precip_probability:
   friendly_name: Precipitation Chance
 sensor.dark_sky_visibility:
   friendly_name: Visibility
 sensor.disk_used_home:
   friendly_name: Disk Usage
+sensor.sonarr_upcoming:
+  icon: mdi:television-box
 sensor.radarr_upcoming:
-  icon: mdi:movie
+  icon: mdi:movie-roll
+sensor.steam_76561197977196046:
+  friendly_name: !secret his_name
+sensor.steam_76561197981449149:
+  friendly_name: Alec

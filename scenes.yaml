@@ -1,54 +1,60 @@
 - name: Living on
   entities:
-    group.kitchen:
+    light.kitchen:
       state: on
       brightness: 160
-    group.tv:
+    light.tv:
       state: on
       brightness: 1
     switch.corner: on
 
 - name: Living dim
   entities:
-    group.kitchen:
+    light.kitchen:
       state: on
       brightness: 40
-    group.tv: off
+    light.tv: off
     switch.corner: on
+
+- name: Living off
+  entities:
+    light.kitchen: off
+    light.tv: off
+    switch.corner: off
 
 - name: Office on
   entities:
-    group.computer:
+    light.computer:
       state: on
       brightness: 255
-    group.office_corner:
+    light.closet:
       state: on
       brightness: 160
 
+- name: Office off
+  entities:
+    light.computer: off
+    light.closet: off
+
 - name: Bedroom on
   entities:
-    group.bed_lights:
+    light.bedroom:
       state: on
       brightness: 255
 
 - name: First in bed
   entities:
-    group.bed_lights: off
-    #switch.fan: on
-
-- name: Last in bed
-  entities:
-    group.living: off
-    group.office: off
+    light.bedroom: off
 
 - name: Good morning
   entities:
     light.her_closet: on
-    group.computer: on
+    light.computer: on
     switch.fan: off
 
 - name: All off
   entities:
     group.living: off
-    group.office: off
-    group.bedroom: off
+    light.closet: off
+    light.computer: off
+    light.bedroom: off

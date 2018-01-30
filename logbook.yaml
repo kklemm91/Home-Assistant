@@ -4,8 +4,8 @@ include:
     - sensor.her_status
     - sensor.deliveries_today
     - sensor.current_version
-    - sensor.kklemmduckdnsorg
-    - light.lightpack
     - sun.sun
     - sensor.moon
     - scene.all_off
+    - calendar.blackhawks
+    - calendar.holidays

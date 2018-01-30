@@ -1,0 +1,58 @@
+- id: she_sleeps
+  alias: First to bed
+  trigger:
+  - platform: state
+    entity_id: light.bedroom
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: time
+    after: '21:00:00'
+    before: '04:00:00'
+  - condition: state
+    entity_id: sensor.her_status
+    state: Home
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.her_status_dropdown
+      option: Sleeping
+
+- id: he_sleeps
+  alias: Last to bed
+  trigger:
+  - platform: state
+    entity_id: group.all_lights
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: time
+    after: '21:00:00'
+    before: '04:00:00'
+  - condition: state
+    entity_id: sensor.his_status
+    state: Home
+  action:
+  - service: input_select.select_option
+    data:
+      entity_id: input_select.his_status_dropdown
+      option: Sleeping
+
+- id: handle_sleep
+  alias: Handle sleep light control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    to: Sleeping
+  - platform: state
+    entity_id: sensor.her_status
+    to: Sleeping
+  action:
+  - service: scene.turn_on
+    data_template:
+      entity_id: >
+        {% if states.sensor.his_status.state != states.sensor.her_status.state %}
+          scene.first_in_bed
+        {% else %}
+          scene.all_off
+        {% endif %}

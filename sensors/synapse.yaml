@@ -9,7 +9,7 @@
 
 - platform: dnsip
   hostname: !secret dns_name
-  resolver: 8.8.8.8
+  resolver: !secret dns_ip
   scan_interval: 3600
 
 - platform: sonarr
@@ -23,3 +23,8 @@
   monitored_conditions: upcoming
   days: 7
   scan_interval: 600
+
+- platform: plex
+  username: !secret icloud_username
+  password: !secret icloud_password
+  token: !secret plex_token

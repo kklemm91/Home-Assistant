@@ -5,5 +5,12 @@
   name: Kodi  
   host: !secret synapse_ip
 
+- platform: plex
+  show_all_controls: true
+  scan_interval: 5
+
 # - platform: vlc
 #   name: VLC
+
+- platform: kodi
+  host: !secret synapse_ip

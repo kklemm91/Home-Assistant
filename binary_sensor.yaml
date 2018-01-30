@@ -1,5 +1,5 @@
 - platform: iss
-  show_on_map: True
+  show_on_map: False
 
 - platform: aurora
 
@@ -8,11 +8,11 @@
   state: IL
 
 - platform: ping
-  host: 192.168.1.1
+  host: !secret router_ip
   name: Router
 
 - platform: ping
-  host: 8.8.8.8
+  host: !secret dns_ip
   name: DNS
 
 - platform: ping

@@ -1,0 +1,117 @@
+- id: living_light_timer
+  alias: Living light timer control
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:30:00
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: sensor.his_status
+        state: Home
+      - condition: state
+        entity_id: sensor.her_status
+        state: Home
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_on
+
+- id: living_off_weekday
+  alias: Living room off weekday
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition:
+  - condition: time
+    weekday:
+      - sun
+      - mon
+      - tue
+      - wed
+      - thu
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_off
+
+- id: living_off_weekend
+  alias: Living room off weekend
+  trigger:
+  - platform: time
+    at: '03:00:00'
+  condition:
+  - condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_off
+
+- id: office_light_timer
+  alias: Office light timer control
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -01:30:00
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: sensor.his_status
+        state: Home
+      - condition: state
+        entity_id: sensor.her_status
+        state: Home
+  action:
+  - service: scene.turn_on
+    entity_id: scene.office_on
+
+- id: office_off_weekday
+  alias: Office off weekday
+  trigger:
+  - platform: time
+    at: '01:00:00'
+  condition:
+  - condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+  - service: scene.turn_on
+    entity_id: scene.office_off
+
+- id: office_off_weekend
+  alias: Office off weekend
+  trigger:
+  - platform: time
+    at: '03:00:00'
+  condition:
+  - condition: time
+    weekday:
+      - sat
+      - sun
+  action:
+  - service: scene.turn_on
+    entity_id: scene.office_off
+
+- id: bedroom_light_timer
+  alias: Bedroom light timer control
+  trigger:
+  - platform: sun
+    event: sunset
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: sensor.his_status
+        state: Home
+      - condition: state
+        entity_id: sensor.her_status
+        state: Home
+  action:
+  - service: scene.turn_on
+    entity_id: scene.bedroom_on

@@ -20,3 +20,4 @@ exclude:
     - sensor.dark_sky_precip_probability
     - sensor.dark_sky_visibility
     - sensor.dark_sky_wind_bearing
+    - sensor.next_game

@@ -1,0 +1,127 @@
+- id: work_day
+  alias: Wake up for work
+  trigger:
+  - platform: time
+    at: '08:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: 'on'
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.his_status
+            state: Sleeping
+          - condition: state
+            entity_id: sensor.her_status
+            state: Sleeping
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if states.input_select.his_status_dropdown.state == 'Sleeping' %}
+          {% if states.input_select.her_status_dropdown.state == 'Sleeping' %}
+            input_select.his_status_dropdown,input_select.her_status_dropdown
+          {% else %}
+            input_select.his_status_dropdown
+          {% endif %}
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Home
+  - service: scene.turn_on
+    entity_id: scene.good_morning
+
+- id: person_awake
+  alias: Mark person as awake
+  trigger:
+  - platform: state
+    entity_id: input_select.his_status_dropdown
+    to: Sleeping
+    for:
+      minutes: 480
+  - platform: state
+    entity_id: input_select.her_status_dropdown
+    to: Sleeping
+    for:
+      minutes: 480
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'input_select.his_status_dropdown' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Home
+
+- id: person_home
+  alias: Mark person as home
+  trigger:
+  - platform: state
+    entity_id: device_tracker.kevins_iphone
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.angelis_iphone
+    from: not_home
+    to: home
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'device_tracker.kevins_iphone' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Home
+
+- id: person_left
+  alias: Mark person as just left
+  trigger:
+  - platform: state
+    entity_id: device_tracker.kevins_iphone
+    from: home
+    to: not_home
+  - platform: state
+    entity_id: device_tracker.angelis_iphone
+    from: home
+    to: not_home
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'device_tracker.kevins_iphone' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Just Left
+
+- id: person_away
+  alias: Mark person as away
+  trigger:
+  - platform: state
+    entity_id: input_select.his_status_dropdown
+    to: Just Left
+    for:
+      minutes: 10
+  - platform: state
+    entity_id: input_select.her_status_dropdown
+    to: Just Left
+    for:
+      minutes: 10
+  action:
+  - service: input_select.select_option
+    data_template:
+      entity_id: >
+        {% if trigger.entity_id == 'input_select.his_status_dropdown' %}
+          input_select.his_status_dropdown
+        {% else %}
+          input_select.her_status_dropdown
+        {% endif %}
+      option: Away

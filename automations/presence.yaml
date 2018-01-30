@@ -1,0 +1,102 @@
+- id: welcome
+  alias: Welcome light control
+  trigger:
+  - platform: state
+    entity_id: light.entry_front
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sensor.his_status
+    state: Away
+  - condition: state
+    entity_id: sensor.her_status
+    state: Away
+  - condition: time
+    after: '15:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_on
+  - service: scene.turn_on
+    entity_id: scene.bedroom_on
+  - service: scene.turn_on
+    entity_id: scene.office_on
+  - service: logbook.log
+    data:
+      message: 'Welcome home'
+
+- id: living_light_presence
+  alias: Living light presence control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    to: Home
+  - platform: state
+    entity_id: sensor.her_status
+    to: Home
+  condition:
+  - condition: time
+    after: '15:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_on
+
+- id: office_light_presence
+  alias: Office light presence control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    to: Home
+  - platform: state
+    entity_id: sensor.her_status
+    to: Home
+  condition:
+  - condition: time
+    after: '15:00:00'
+    before: '23:59:59'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.office_on
+
+- id: bedroom_light_presence
+  alias: Bedroom light presence control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    to: Home
+  - platform: state
+    entity_id: sensor.her_status
+    to: Home
+  condition:
+  - condition: time
+    after: '16:00:00'
+    before: '22:00:00'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.bedroom_on
+
+- id: house_empty
+  alias: House empty light control
+  trigger:
+  - platform: state
+    entity_id: sensor.his_status
+    to: Away
+    for:
+      minutes: 10
+  - platform: state
+    entity_id: sensor.her_status
+    to: Away
+    for:
+      minutes: 10
+  condition:
+  - condition: state
+    entity_id: sensor.his_status
+    state: Away
+  - condition: state
+    entity_id: sensor.her_status
+    state: Away
+  action:
+  - service: scene.turn_on
+    entity_id: scene.all_off

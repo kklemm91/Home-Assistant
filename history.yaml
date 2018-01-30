@@ -2,17 +2,17 @@ include:
   entities:
     - sensor.his_status
     - sensor.her_status
-    - group.hallway
+    - light.hallway
     - group.living
     - group.office
-    - group.bed_lights
+    - light.bedroom
     - sensor.weather_current
     - sun.sun
     - sensor.laundry_temperature
     - sensor.dark_sky_temperature
     - sensor.dark_sky_daily_high_temperature
     - sensor.dark_sky_daily_low_temperature
-    - sensor.bitcoin
+    - sensor.ethereum
     - sensor.transmission_up_speed
     - sensor.transmission_down_speed
     - sensor.naperville

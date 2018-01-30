@@ -1,0 +1,74 @@
+# - id: frontend_notify_weather
+#   alias: Frontend Weather Alert
+#   trigger:
+#     platform: state
+#     entity_id: sensor.pws_alerts
+#   action:
+#     service: script.frontend_weather_alert
+
+# - id: ios_notify_weather
+#   alias: iOS Weather Alert
+#   trigger:
+#     platform: state
+#     entity_id: sensor.pws_alerts
+#   condition:
+#     condition: and
+#     conditions:
+#       - condition: template
+#         value_template: '{{states.sensor.pws_alerts.state | int > 0}}'
+#       - condition: time
+#         after: '08:00:00'
+#         before: '22:00:00'
+#   action:
+    # - service: !secret his_notify
+    #   data:
+    #     message: 'NWS: {{ states.sensor.pws_alerts.attributes.Description }}'
+    #     data:
+    #        attachment:
+    #           url: https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?station=LOT&brand=wui&num=10&delay=25&type=N0R&frame=0&scale=1.000&noclutter=0&showstorms=0&mapx=400&mapy=240&centerx=400&centery=240&transx=0&transy=0&showlabels=0&severe=0&rainsnow=0&lightning=0&smooth=0&rand=24998536&lat=0&lon=0&label=you
+    #           content-type: gif
+    #           hide-thumbnail: false
+
+- id: morning_message
+  alias: Morning Message
+  trigger:
+  - platform: state
+    entity_id: input_select.his_status_dropdown
+    from: Sleeping
+    to: Home
+  action:
+  - service: !secret his_notify
+    data:
+      message: '{{ states.weather.temperature.attributes.hourly_forecast_summary }}'
+      data:
+        attachment:
+          url: !secret wunderground_map
+          content-type: gif
+          hide-thumbnail: false
+
+- id: holiday
+  alias: Holiday
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition:
+  - condition: state
+    entity_id: calendar.holidays
+    state: 'on'
+  action:
+  - service: !secret his_notify
+    data_template:
+      message: 'Today is {{ states.calendar.holidays.attributes.message }}'
+
+- id: package_delivered
+  alias: Notify package delivery
+  trigger:
+    platform: state
+    entity_id: sensor.deliveries_today
+  condition:
+  - condition: template
+    value_template: '{{trigger.to_state.state|int > trigger.from_state.state|int}}'
+  action:
+  - service: !secret his_notify
+    data:
+      message: 'A package was delivered'

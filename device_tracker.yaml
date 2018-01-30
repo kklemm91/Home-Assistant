@@ -1,22 +1,9 @@
-- platform: nmap_tracker
-  track_new_devices: false
-  home_interval: 10
-  consider_home: 300
-  hosts: 
-    his_iphone: !secret his_iphone_ip
-    her_iphone: !secret her_iphone_ip
+- platform: unifi
+  username: !secret icloud_username
+  password: !secret myusps_password
+  verify_ssl: false
 
-- platform: ping
-  interval_seconds: 60
-  consider_home: 180
-  hosts:
-    fractal_ethernet: !secret fractal_ip
-    fractal_wifi: !secret fractal_wifi_ip
-    hue_bridge: !secret hue_ip
-    echo_dot: !secret echo_ip
-    printer: !secret printer_ip
-
-- platform: bluetooth_tracker
+# - platform: bluetooth_tracker
 
 # - platform: icloud
 #   username: !secret icloud_username

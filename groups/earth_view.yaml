@@ -4,12 +4,10 @@ earth_view:
   icon: mdi:earth
   entities:
     - group.weather
-    - group.sky
-    - group.commute
-    - group.visit
-    - group.finance
+    - group.solar
+    - group.markets
     - group.packages
-#    - history_graph.iphone_battery
+    - group.blackhawks
 
 weather:
   name: Today's Weather
@@ -18,25 +16,26 @@ weather:
   entities:
     - sensor.dark_sky_summary
     - sensor.dark_sky_temperature
-    - sensor.dark_sky_humidity
-    - sensor.dark_sky_visibility
-    - sensor.dark_sky_cloud_coverage
-    - sensor.dark_sky_precip_probability
-    - sensor.dark_sky_nearest_storm_distance
-    - sensor.dark_sky_wind_speed
     - sensor.wind_dir
-    - camera.radar
+    - sensor.dark_sky_wind_speed
+    #- sensor.dark_sky_visibility
+    #- sensor.dark_sky_cloud_coverage
+    #- sensor.dark_sky_humidity
+    - sensor.dark_sky_nearest_storm_distance
+    - sensor.dark_sky_precip_probability
 
-sky:
-  name: Sky
+solar:
+  name: Space
   view: no
   icon: mdi:white-balance-sunny
   entities:
     - sun.sun
     - sensor.solar_angle
     - sensor.moon
+    - binary_sensor.iss
+    - binary_sensor.aurora_visibility
 
-finance:
+markets:
   name: Markets
   view: no
   entities:
@@ -54,3 +53,11 @@ packages:
     - sensor.usps_packages
     - sensor.deliveries_today
     - camera.usps_mail
+
+blackhawks:
+  name: Blackhawks
+  view: no
+  icon: mdi:hockey
+  entities:
+    - calendar.blackhawks
+    - sensor.next_game

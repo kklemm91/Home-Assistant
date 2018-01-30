@@ -1,7 +1,7 @@
 - platform: tplink
   name: Fan
-  host: !secret fan_switch_ip
+  host: !secret fan_plug_ip
 
 - platform: tplink
   name: Corner
-  host: !secret corner_lamp_ip
+  host: !secret lamp_plug_ip

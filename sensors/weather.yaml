@@ -16,6 +16,11 @@
     - wind_bearing
   scan_interval: 120
 
+- platform: wunderground
+  api_key: 58c1b1db57e371d5
+  monitored_conditions:
+    - alerts
+
 - platform: moon
 
 - platform: template

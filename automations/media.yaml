@@ -1,0 +1,125 @@
+- id: media_started
+  alias: Media player started
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi
+    to: 'playing'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_dim
+  - service: lightpack.set_profile
+    data:
+      profile: Dim
+
+- id: media_stopped
+  alias: Media player stopped
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi
+    from: 'playing'
+    to: 'paused'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+  - service: scene.turn_on
+    entity_id: scene.living_on
+  - service: light.turn_off
+    entity_id: light.lightpack
+
+- id: media_idle
+  alias: Media player idle
+  trigger:
+  - platform: state
+    entity_id: media_player.kodi
+    from: 'paused'
+    to: 'idle'
+  condition:
+  - condition: state
+    entity_id: media_player.itunes
+    state: 'paused'
+  action:
+  - service: light.turn_off
+    entity_id: light.lightpack
+
+- id: music_started
+  alias: iTunes started
+  trigger:
+  - platform: state
+    entity_id: media_player.itunes
+    to: 'playing'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+  - service: lightpack.set_profile
+    data:
+      profile: Rainbow
+
+- id: music_stopped
+  alias: iTunes stopped
+  trigger:
+  - platform: state
+    entity_id: media_player.itunes
+    from: 'playing'
+    to: 'paused'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  action:
+    - service: light.turn_off
+      entity_id: light.lightpack
+
+- id: blackhawks_on
+  alias: Blackhawks are playing
+  trigger:
+  - platform: state
+    entity_id: calendar.blackhawks
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: sensor.his_status
+            state: Home
+          - condition: state
+            entity_id: sensor.her_status
+            state: Home
+  action:
+  - service: !secret his_notify
+    data_template:
+      title: 'Game starting'
+      message: '{{ states.calendar.blackhawks.attributes.message }}'
+  - service: tts.google_say
+    data_template:
+      entity_id: media_player.home_mini
+      message: 'The {{ states.calendar.blackhawks.attributes.message }} game is starting.'
+  - service: lightpack.set_profile
+    data:
+      profile: Blackhawks
+
+- id: blackhawks_off
+  alias: Blackhawks are done playing
+  trigger:
+  - platform: state
+    entity_id: calendar.blackhawks
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: light.lightpack
+    state: 'on'
+  action:
+  - service: light.turn_off
+    entity_id: light.lightpack
