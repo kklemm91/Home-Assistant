@@ -1,10 +1,11 @@
 # Home-Assistant
-My home assistant configuration made for 2 people in an apartment
+My home assistant configuration
 
-# To Do
-Presence card is input_select because state handling is WIP
-
-# Known Issues
-- Lightpack custom component is missing from repo, see other repo
-- USPS sensor is broken
-- Yahoo Finance is broken
+# Devices
+Philips Hue bulbs
+Philips Hue motion sensors
+TP-Link smart switches
+Unifi Security Gateway
+Ecobee3 Lite
+Synology NAS
+Lightpack
