@@ -1,24 +1,3 @@
-lightpack_rainbow:
-  alias: Rainbow
-  sequence:
-  - data:
-      profile: Rainbow
-    service: lightpack.set_profile
-
-lightpack_dim:
-  alias: Dim
-  sequence:
-  - data:
-      profile: Dim
-    service: lightpack.set_profile
-
-lightpack_blackhawks:
-  alias: Blackhawks
-  sequence:
-  - data:
-      profile: Blackhawks
-    service: lightpack.set_profile
-
 # frontend_weather_alert:
 #   sequence:
 #     - service: persistent_notification.dismiss

@@ -9,3 +9,4 @@ include:
     - scene.all_off
     - calendar.blackhawks
     - calendar.holidays
+    - climate.ecobee

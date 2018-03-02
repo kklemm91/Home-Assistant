@@ -1,16 +1,15 @@
 - platform: itunes
-  host: !secret fractal_wifi_ip
+  host: !secret fractal_ip
 
-- platform: kodi
-  name: Kodi  
-  host: !secret synapse_ip
+# - platform: kodi
+#   name: Kodi  
+#   host: !secret synapse_ip
 
-- platform: plex
-  show_all_controls: true
-  scan_interval: 5
+# - platform: plex
+#   show_all_controls: true
+#   scan_interval: 5
+
+# - platform: cast
 
 # - platform: vlc
 #   name: VLC
-
-- platform: kodi
-  host: !secret synapse_ip

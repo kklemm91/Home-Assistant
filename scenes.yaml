@@ -1,60 +1,107 @@
+- name: Music playing
+  entities:
+    light.hyperion:
+      state: on
+      effect: "Rainbow swirl fast"
+      brightness_pct: 100
+
+- name: Music stopped
+  entities:
+    light.hyperion:
+      state: on
+      effect: "Rainbow mood"
+      brightness_pct: 100
+
+- name: Movie playing
+  entities:
+    light.kitchen:
+      state: on
+      transition: 5
+      brightness_pct: 15
+    light.hyperion:
+      state: on
+      effect: "Cinema dim lights"
+      brightness_pct: 60
+    light.tv: off
+    switch.corner: on
+
+- name: Blackhawks playing
+  entities:
+    light.hyperion:
+      state: on
+      color_name: red
+      brightness_pct: 80
+    light.tv: off
+    switch.corner: on
+
 - name: Living on
   entities:
     light.kitchen:
       state: on
-      brightness: 160
+      transition: 5
+      brightness_pct: 60
+    light.hyperion:
+      state: on
+      effect: "Warm mood blobs"
+      brightness_pct: 100
     light.tv:
       state: on
-      brightness: 1
-    switch.corner: on
-
-- name: Living dim
-  entities:
-    light.kitchen:
-      state: on
-      brightness: 40
-    light.tv: off
+      brightness_pct: 1
     switch.corner: on
 
 - name: Living off
   entities:
     light.kitchen: off
     light.tv: off
+    light.hyperion: off
     switch.corner: off
 
 - name: Office on
   entities:
     light.computer:
       state: on
-      brightness: 255
-    light.closet:
+      transition: 5
+      brightness_pct: 100
+    light.office:
       state: on
-      brightness: 160
+      transition: 5
+      brightness_pct: 50
+
+- name: Office dim
+  entities:
+    light.office:
+      state: on
+      transition: 3600
+      brightness_pct: 5
 
 - name: Office off
   entities:
     light.computer: off
-    light.closet: off
+    light.office: off
 
 - name: Bedroom on
   entities:
     light.bedroom:
       state: on
-      brightness: 255
-
-- name: First in bed
-  entities:
-    light.bedroom: off
+      transition: 5
+      brightness_pct: 100
 
 - name: Good morning
   entities:
-    light.her_closet: on
-    light.computer: on
+    light.her_closet:
+      state: on
+      transition: 5
+      brightness_pct: 50
+    light.computer:
+      state: on
+      transition: 5
+      brightness_pct: 70
     switch.fan: off
 
 - name: All off
   entities:
     group.living: off
-    light.closet: off
+    light.kitchen: off
     light.computer: off
+    light.office: off
     light.bedroom: off

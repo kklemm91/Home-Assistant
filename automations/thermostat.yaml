@@ -1,0 +1,17 @@
+- id: fan_follows_heat
+  alias: Fan on when heat on
+  trigger:
+  - platform: template
+    value_template: "{{ states.climate.ecobee.attributes.fan == 'on' }}"
+  action:
+  - service: switch.turn_on
+    entity_id: switch.fan
+
+- id: fan_follows_heat_off
+  alias: Fan off when heat off
+  trigger:
+  - platform: template
+    value_template: "{{ states.climate.ecobee.attributes.fan == 'off' }}"
+  action:
+  - service: switch.turn_off
+    entity_id: switch.fan

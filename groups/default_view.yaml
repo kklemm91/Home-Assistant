@@ -2,22 +2,22 @@ default_view:
   view: yes
   icon: mdi:home
   entities:
-    - weather.temperature
     - group.presence
+    - group.kitchen
     - group.office
     - group.living
     - group.bedroom
     - group.hallway
-    - group.lightpack
 
 presence:
-  name: Location
+  name: Presence
   view: no
   icon: mdi:account
   entities:
     - sensor.his_status
     - sensor.her_status
-    - sensor.steam_76561197981449149
+    - sensor.alec
+    - weather.ecobee
 
 office:
   name: Office
@@ -26,16 +26,16 @@ office:
   control: hidden
   entities:
     - light.computer
-    - light.closet
+    - light.office
 
-lightpack:
-  name: Lightpack
+kitchen:
+  name: Kitchen
   view: no
-  icon: mdi:television-guide
+  icon: mdi:fridge
   entities:
-    - light.lightpack
-    - script.lightpack_dim
-    - script.lightpack_rainbow
+    - light.kitchen
+    - climate.ecobee
+    - sensor.ecobee_humidity
 
 living:
   name: Living Room
@@ -43,9 +43,10 @@ living:
   icon: mdi:home
   control: hidden
   entities:
-    - light.kitchen
     - switch.corner
-    - light.tv
+    - light.television
+    - sensor.next_game
+    - light.hyperion
 
 bedroom:
   name: Bedroom
@@ -61,6 +62,5 @@ hallway:
   view: no
   icon: mdi:washing-machine
   entities:
-    - light.hallway
     - sensor.entry_temperature
-    - sensor.laundry_temperature
+    - light.hallway

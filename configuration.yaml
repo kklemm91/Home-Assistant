@@ -14,16 +14,14 @@ camera: !include camera.yaml
 device_tracker: !include device_tracker.yaml
 history: !include history.yaml
 http: !include http.yaml
-# history_graph: !include history_graph.yaml
 input_select: !include input_select.yaml
-#light: !include light.yaml
+light: !include light.yaml
 logbook: !include logbook.yaml
-logger: !include logger.yaml
 media_player: !include media_player.yaml
 notify: !include notify.yaml
 recorder: !include recorder.yaml
 scene: !include scenes.yaml
-sensor: !include_dir_merge_list sensors
+sensor: !include sensors.yaml
 switch: !include switch.yaml
 script: !include scripts.yaml
 zone: !include zones.yaml
@@ -31,18 +29,25 @@ weather: !include weather.yaml
 group: !include_dir_merge_named groups
 
 ios:
-map:
 discovery:
 frontend:
+  javascript_version: latest
 updater:
-#keyboard:
+  include_used_components: true
 config:
 sun:
-#shopping_list:
+ecobee:
+
+logger:
+  default: info
+  logs:
+    homeassistant.components.http: warn
+    pycec: warn
 
 hue:
   bridges:
     - host: !secret hue_ip
+      allow_unreachable: true
 
 google:
   client_id: !secret gcal_client_id
@@ -52,3 +57,4 @@ google:
 #   name: USPS
 #   username: !secret myusps_username
 #   password: !secret myusps_password
+#   driver: 'chrome'

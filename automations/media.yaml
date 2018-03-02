@@ -10,10 +10,7 @@
     state: 'below_horizon'
   action:
   - service: scene.turn_on
-    entity_id: scene.living_dim
-  - service: lightpack.set_profile
-    data:
-      profile: Dim
+    entity_id: scene.movie_playing
 
 - id: media_stopped
   alias: Media player stopped
@@ -29,8 +26,6 @@
   action:
   - service: scene.turn_on
     entity_id: scene.living_on
-  - service: light.turn_off
-    entity_id: light.lightpack
 
 - id: media_idle
   alias: Media player idle
@@ -45,7 +40,7 @@
     state: 'paused'
   action:
   - service: light.turn_off
-    entity_id: light.lightpack
+    entity_id: light.hyperion
 
 - id: music_started
   alias: iTunes started
@@ -58,9 +53,8 @@
     entity_id: sun.sun
     state: 'below_horizon'
   action:
-  - service: lightpack.set_profile
-    data:
-      profile: Rainbow
+  - service: scene.turn_on
+    entity_id: scene.music_playing
 
 - id: music_stopped
   alias: iTunes stopped
@@ -74,8 +68,8 @@
     entity_id: sun.sun
     state: 'below_horizon'
   action:
-    - service: light.turn_off
-      entity_id: light.lightpack
+  - service: scene.turn_on
+    entity_id: scene.music_stopped
 
 - id: blackhawks_on
   alias: Blackhawks are playing
@@ -106,9 +100,8 @@
     data_template:
       entity_id: media_player.home_mini
       message: 'The {{ states.calendar.blackhawks.attributes.message }} game is starting.'
-  - service: lightpack.set_profile
-    data:
-      profile: Blackhawks
+  - service: scene.turn_on
+    entity_id: scene.blackhawks_playing
 
 - id: blackhawks_off
   alias: Blackhawks are done playing
@@ -122,4 +115,4 @@
     state: 'on'
   action:
   - service: light.turn_off
-    entity_id: light.lightpack
+    entity_id: light.hyperion

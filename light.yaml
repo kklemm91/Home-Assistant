@@ -2,7 +2,6 @@
   host: !secret hue_ip
   allow_unreachable: true
 
-- platform: lightpack
+- platform: hyperion
   host: !secret synapse_ip
-  port: !secret lightpack_port
-  api_key: !secret lightpack_synapse_api_key
+  name: Hyperion

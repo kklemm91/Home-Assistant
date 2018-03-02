@@ -1,8 +1,0 @@
-- platform: coinmarketcap
-  currency: bitcoin
-
-- platform: coinmarketcap
-  currency: ethereum
-
-- platform: coinmarketcap
-  currency: litecoin

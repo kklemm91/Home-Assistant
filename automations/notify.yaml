@@ -32,19 +32,19 @@
 - id: morning_message
   alias: Morning Message
   trigger:
-  - platform: state
-    entity_id: input_select.his_status_dropdown
-    from: Sleeping
-    to: Home
+  - platform: time
+    at: '08:00:00'
+  condition:
+    condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
   action:
   - service: !secret his_notify
     data:
       message: '{{ states.weather.temperature.attributes.hourly_forecast_summary }}'
-      data:
-        attachment:
-          url: !secret wunderground_map
-          content-type: gif
-          hide-thumbnail: false
+  - service: logbook.log
+    data:
+      message: '{{ states.weather.temperature.attributes.hourly_forecast_summary }}'
 
 - id: holiday
   alias: Holiday

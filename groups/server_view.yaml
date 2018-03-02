@@ -5,11 +5,19 @@ server_view:
   entities:
     - group.synapse
     - group.synology
-    - group.transmission
-    - group.home_devices
-    - group.network
-    #- group.debug
-    - configurator.philips_hue
+    - group.fractal
+    - group.neuron
+    - group.markets
+    - group.devices
+    - group.ping
+
+fractal:
+  name: Fractal
+  view: no
+  icon: mdi:computer-desktop
+  entities:
+    - sensor.glances_disk_used
+    - sensor.glances_ram_used
 
 synapse:
   name: Synapse
@@ -20,9 +28,7 @@ synapse:
     - updater.updater
     - sensor.since_last_boot
     - sensor.kklemmduckdnsorg
-    - sensor.cpu_used
-    - sensor.disk_used_home
-#    - sensor.plex
+    - sensor.disk_use_percent_home
 
 synology:
   name: Synology
@@ -33,22 +39,27 @@ synology:
     - sensor.sonarr_upcoming
     - sensor.radarr_upcoming
 
-home_devices:
-  name: Devices
+neuron:
+  name: Neuron
+  view: no
+  entities:
+    - sensor.pihole_dns_queries_today
+    - sensor.pihole_ads_blocked_today
+    - sensor.pihole_domains_blocked
+
+devices:
+  name: ProtoNet
   view: no
   icon: mdi:access-point-network
   entities:
     - device_tracker.synology
     - device_tracker.synapse
+    - device_tracker.ecobee
     - device_tracker.printer
     - device_tracker.echo_spot
-    - device_tracker.google_home
-    - device_tracker.angelis_ipad
-    - device_tracker.angelis_macbook_pro
-    - device_tracker.angelis_macbook_pro_2
 
-network:
-  name: Network
+ping:
+  name: Ping
   view: no
   icon: mdi:wifi
   entities:
@@ -56,10 +67,10 @@ network:
     - sensor.dns
     - sensor.google
 
-debug:
-  name: Debug
+markets:
+  name: Crypto
   view: no
-  icon: mdi:gear
   entities:
-    - input_select.his_status_dropdown
-    - input_select.her_status_dropdown
+    - sensor.bitcoin
+    - sensor.ethereum
+    - sensor.ethereum_2

@@ -1,9 +1,22 @@
 group.default_view:
   order: 1
-group.earth_view:
-  order: 2
 group.server_view:
-  order: 3
+  order: 2
+climate.ecobee:
+  friendly_name: Thermostat
+  icon: mdi:oil-temperature
+sensor.ecobee_temperature:
+  friendly_name: Temperature
+  icon: mdi:temperature-fahrenheit
+sensor.ecobee_humidity:
+  friendly_name: Humidity
+  icon: mdi:water-percent
+weather.ecobee:
+  friendly_name: Temperature
+device_tracker.ecobee:
+  icon: mdi:oil-temperature
+weather.temperature:
+  friendly_name: Temperature
 sensor.packages_in_transit:
   icon: mdi:truck-delivery
 sensor.deliveries_today:
@@ -17,10 +30,18 @@ sensor.msi:
   icon: mdi:chart-line
 sensor.bitcoin:
   icon: mdi:currency-btc
+  unit_of_measurement: USD
+sensor.ethereum_2:
+  unit_of_measurement: BTC
 sensor.ethereum:
   icon: mdi:diamond
+  unit_of_measurement: USD
 sensor.litecoin:
   icon: mdi:star-circle
+sensor.glances_disk_used:
+  friendly_name: Disk Usage
+sensor.glances_ram_used:
+  friendly_name: Memory Usage
 binary_sensor.google:
   hidden: true
 sensor.his_status:
@@ -79,14 +100,24 @@ switch.corner:
 switch.fan:
   icon: mdi:fan
 light.hallway:
-  icon: mdi:door
+  icon: mdi:ceiling-light
 light.kitchen:
   icon: mdi:ceiling-light
-light.tv:
+light.computer:
+  icon: mdi:monitor
+light.office:
+  icon: mdi:flower
+light.television:
   friendly_name: Television
-  icon: mdi:television
+  icon: mdi:ceiling-light
+light.hyperion:
+  icon: mdi:television-guide
 light.bedroom:
   icon: mdi:hotel
+sensor.entry_temperature:
+  icon: mdi:door
+sensor.laundry_temperature:
+  icon: mdi:washing-machine
 sensor.iss:
   icon: mdi:satellite-variant
 binary_sensor.aurora_visibility:
@@ -142,7 +173,7 @@ sensor.dark_sky_precip_probability:
   friendly_name: Precipitation Chance
 sensor.dark_sky_visibility:
   friendly_name: Visibility
-sensor.disk_used_home:
+sensor.disk_use_percent_home:
   friendly_name: Disk Usage
 sensor.sonarr_upcoming:
   icon: mdi:television-box
@@ -152,3 +183,15 @@ sensor.steam_76561197977196046:
   friendly_name: !secret his_name
 sensor.steam_76561197981449149:
   friendly_name: Alec
+sensor.alec:
+  friendly_name: Alec
+  entity_picture: !secret alec_steam_url
+sensor.pihole_dns_queries_today:
+  friendly_name: Queries Today
+  unit_of_measurement: ''
+sensor.pihole_ads_blocked_today:
+  friendly_name: Ads Blocked
+  unit_of_measurement: ''
+sensor.pihole_domains_blocked:
+  friendly_name: Blacklist
+  unit_of_measurement: ''

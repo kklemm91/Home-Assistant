@@ -1,19 +1,16 @@
+use_include_order: true
 include:
   entities:
     - sensor.his_status
     - sensor.her_status
     - light.hallway
-    - group.living
     - group.office
+    - group.living
     - light.bedroom
-    - sensor.weather_current
     - sun.sun
     - sensor.laundry_temperature
     - sensor.dark_sky_temperature
-    - sensor.dark_sky_daily_high_temperature
-    - sensor.dark_sky_daily_low_temperature
     - sensor.ethereum
     - sensor.transmission_up_speed
     - sensor.transmission_down_speed
-    - sensor.naperville
-    - sensor.hoffman_estates
+    - sensor.fractal_cpu_idle
