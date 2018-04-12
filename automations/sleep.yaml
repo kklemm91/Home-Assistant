@@ -1,14 +1,25 @@
+- id: keep_hall_off
+  alias: Turn hallway off
+  trigger:
+  - platform: state
+    entity_id: light.hallway
+    to: 'on'
+    for:
+      minutes: 20
+  action:
+    service: light.turn_off
+    entity_id: light.hallway
+
 - id: he_sleeps
   alias: Last to bed
   trigger:
   - platform: state
     entity_id: group.all_lights
     to: 'off'
-  - platform: numeric_state
-    entity_id: sensor.fractal_cpu_idle
-    above: 91
-    for:
-      hours: 1
+  - platform: state
+    entity_id: sensor.screen_saver
+    from: 'Off'
+    to: 'On'
   condition:
   - condition: time
     after: '22:00:00'
@@ -16,6 +27,28 @@
   - condition: state
     entity_id: sensor.his_status
     state: Home
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: media_player.kodi
+        state: 'off'
+      - condition: state
+        entity_id: media_player.kodi
+        state: 'idle'
+      - condition: state
+        entity_id: media_player.kodi
+        state: 'paused'
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: media_player.itunes
+        state: 'off'
+      - condition: state
+        entity_id: media_player.itunes
+        state: 'idle'
+      - condition: state
+        entity_id: media_player.itunes
+        state: 'paused'
   action:
   - service: input_select.select_option
     data:
@@ -42,20 +75,3 @@
       option: Sleeping
   - service: light.turn_off
     entity_id: light.office
-
-- id: handle_sleep
-  alias: Handle sleep light control
-  trigger:
-  - platform: state
-    entity_id: sensor.his_status
-    to: Sleeping
-  - platform: state
-    entity_id: sensor.her_status
-    to: Sleeping
-  action:
-  - service: scene.turn_on
-    data_template:
-      entity_id: >
-        {% if states.sensor.his_status.state == states.sensor.her_status.state %}
-          scene.all_off
-        {% endif %}

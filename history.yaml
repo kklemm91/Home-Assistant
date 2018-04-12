@@ -4,13 +4,14 @@ include:
     - sensor.his_status
     - sensor.her_status
     - light.hallway
-    - group.office
-    - group.living
     - light.bedroom
+    - group.living
+    - group.office
+    - sensor.screen_saver
+    - vacuum.vacuum
     - sun.sun
-    - sensor.laundry_temperature
+    - climate.ecobee
     - sensor.dark_sky_temperature
     - sensor.ethereum
     - sensor.transmission_up_speed
     - sensor.transmission_down_speed
-    - sensor.fractal_cpu_idle

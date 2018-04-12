@@ -2,10 +2,17 @@
   entities:
     light.hyperion:
       state: on
-      effect: "Rainbow swirl fast"
+      effect: "Rainbow swirl"
       brightness_pct: 100
 
-- name: Music stopped
+- name: Music paused
+  entities:
+    light.hyperion:
+      state: on
+      effect: "Rainbow swirl"
+      brightness_pct: 50
+
+- name: Music idle
   entities:
     light.hyperion:
       state: on
@@ -14,16 +21,19 @@
 
 - name: Movie playing
   entities:
-    light.kitchen:
-      state: on
-      transition: 5
-      brightness_pct: 15
     light.hyperion:
       state: on
       effect: "Cinema dim lights"
-      brightness_pct: 60
-    light.tv: off
-    switch.corner: on
+      brightness_pct: 50
+    light.television: off
+
+- name: Movie paused
+  entities:
+    light.hyperion:
+      state: on
+      effect: "Rainbow mood"
+      brightness_pct: 100
+    light.television: off
 
 - name: Blackhawks playing
   entities:
@@ -31,20 +41,24 @@
       state: on
       color_name: red
       brightness_pct: 80
-    light.tv: off
-    switch.corner: on
+    light.television: off
 
 - name: Living on
   entities:
     light.kitchen:
       state: on
       transition: 5
-      brightness_pct: 60
-    light.hyperion:
+      brightness_pct: 65
+    light.television: off
+    switch.corner: on
+
+- name: Living dim
+  entities:
+    light.kitchen:
       state: on
-      effect: "Warm mood blobs"
-      brightness_pct: 100
-    light.tv:
+      transition: 5
+      brightness_pct: 30
+    light.television:
       state: on
       brightness_pct: 1
     switch.corner: on
@@ -52,13 +66,13 @@
 - name: Living off
   entities:
     light.kitchen: off
-    light.tv: off
+    light.television: off
     light.hyperion: off
     switch.corner: off
 
 - name: Office on
   entities:
-    light.computer:
+    light.computer_2:
       state: on
       transition: 5
       brightness_pct: 100
@@ -71,8 +85,8 @@
   entities:
     light.office:
       state: on
-      transition: 3600
       brightness_pct: 5
+      transition: 3600
 
 - name: Office off
   entities:

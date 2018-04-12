@@ -3,11 +3,13 @@ default_view:
   icon: mdi:home
   entities:
     - group.presence
-    - group.kitchen
-    - group.office
     - group.living
+    - group.office
     - group.bedroom
-    - group.hallway
+    - group.climate
+    - group.markets
+    - group.itunes
+    - group.apple_tv
 
 presence:
   name: Presence
@@ -17,7 +19,6 @@ presence:
     - sensor.his_status
     - sensor.her_status
     - sensor.alec
-    - weather.ecobee
 
 office:
   name: Office
@@ -28,14 +29,16 @@ office:
     - light.computer
     - light.office
 
-kitchen:
-  name: Kitchen
+climate:
+  name: Climate
   view: no
-  icon: mdi:fridge
+  icon: mdi:cloud
+  control: hidden
   entities:
-    - light.kitchen
     - climate.ecobee
     - sensor.ecobee_humidity
+    - weather.ecobee
+    - vacuum.vacuum
 
 living:
   name: Living Room
@@ -43,10 +46,10 @@ living:
   icon: mdi:home
   control: hidden
   entities:
+    - light.kitchen
     - switch.corner
     - light.television
-    - sensor.next_game
-    - light.hyperion
+    #- light.hyperion
 
 bedroom:
   name: Bedroom
@@ -57,10 +60,35 @@ bedroom:
     - light.bedroom
     - switch.fan
 
-hallway:
-  name: Hallway
+markets:
+  name: Crypto
   view: no
-  icon: mdi:washing-machine
   entities:
-    - sensor.entry_temperature
-    - light.hallway
+    - sensor.bitcoin
+    - sensor.ethereum
+    - sensor.ethereum_2
+
+itunes:
+  name: iTunes
+  view: no
+  icon: mdi:itunes
+  entities:
+    - media_player.itunes
+
+apple_tv:
+  name: Apple TV
+  view: no
+  icon: mdi:apple
+  entities:
+    - media_player.apple_tv_3
+
+# packages:
+#   name: Mail
+#   view: no
+#   icon: mdi:envelope
+#   control: hidden
+#   entities:
+#     - sensor.usps_packages
+#     - sensor.ups
+#     - sensor.fedex
+#     - camera.usps_mail

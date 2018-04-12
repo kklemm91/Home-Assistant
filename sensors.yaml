@@ -82,14 +82,33 @@
   - 'disk_use_percent'
   - 'memory_use_percent'
 
-- platform: rest
-  name: Fractal CPU Idle
-  resource: !secret fractal_glances
-  method: GET
-  value_template: '{{ value_json.idle }}'
-  verify_ssl: false
-  unit_of_measurement: '%'
-  force_update: true
+# - platform: rest
+#   name: Fractal CPU Idle
+#   resource: !secret fractal_cpu_glances
+#   method: GET
+#   value_template: '{{ value_json.idle }}'
+#   verify_ssl: false
+#   unit_of_measurement: '%'
+#   force_update: true
+
+- platform: command_line
+  name: Screen Saver
+  command: page="$(curl -X GET http://fractal:61208/api/2/processlist)"; echo "$page" | grep "ScreenSaverEngine" | wc -l
+  payload_on: "1"
+  payload_off: "0"
+  device_class: moving
+  value_template: >
+    {% if value == '0' %}
+      Off
+    {% else %}
+      On
+    {% endif %}
+
+- platform: template
+  sensors:
+    ecobee:
+      friendly_name: Ecobee
+      value_template: "{{ states.climate.ecobee.attributes.fan }}"
 
 - platform: rest
   name: 'Entry Temperature'
@@ -120,7 +139,7 @@
   scan_interval: 60
 
 - platform: pi_hole
-  host: !secret neuron_ip
+  host: !secret synapse_ip
   verify_ssl: false
   monitored_conditions:
     - dns_queries_today

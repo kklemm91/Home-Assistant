@@ -36,7 +36,21 @@ updater:
   include_used_components: true
 config:
 sun:
+
 ecobee:
+  api_key: !secret ecobee_api_key
+
+apple_tv:
+  - host: !secret apple_tv_ip
+    login_id: !secret apple_tv_login_id
+    name: Apple TV
+    credentials: !secret apple_tv_credentials
+
+vacuum:
+  platform: xiaomi_miio
+  name: Vacuum
+  host: !secret vacuum_ip
+  token: !secret vacuum_api_key
 
 logger:
   default: info

@@ -6,8 +6,7 @@ server_view:
     - group.synapse
     - group.synology
     - group.fractal
-    - group.neuron
-    - group.markets
+    - group.pihole
     - group.devices
     - group.ping
 
@@ -39,24 +38,13 @@ synology:
     - sensor.sonarr_upcoming
     - sensor.radarr_upcoming
 
-neuron:
-  name: Neuron
+pihole:
+  name: Pi-Hole
   view: no
   entities:
     - sensor.pihole_dns_queries_today
     - sensor.pihole_ads_blocked_today
     - sensor.pihole_domains_blocked
-
-devices:
-  name: ProtoNet
-  view: no
-  icon: mdi:access-point-network
-  entities:
-    - device_tracker.synology
-    - device_tracker.synapse
-    - device_tracker.ecobee
-    - device_tracker.printer
-    - device_tracker.echo_spot
 
 ping:
   name: Ping
@@ -67,10 +55,17 @@ ping:
     - sensor.dns
     - sensor.google
 
-markets:
-  name: Crypto
+devices:
+  name: ProtoNet
   view: no
+  icon: mdi:access-point-network
   entities:
-    - sensor.bitcoin
-    - sensor.ethereum
-    - sensor.ethereum_2
+    - device_tracker.synology
+    - device_tracker.synapse
+    - device_tracker.hue_bridge
+    - device_tracker.ecobee
+    - device_tracker.apple_tv
+    - device_tracker.echo_spot
+    - device_tracker.vacuum
+    - device_tracker.printer
+    - device_tracker.kevins_work_laptop

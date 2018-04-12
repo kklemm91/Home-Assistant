@@ -1,0 +1,50 @@
+- id: hide_media
+  alias: Hide Media
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - delay:
+      seconds: 5
+  - service: group.set_visibility
+    entity_id: group.itunes
+    data_template:
+      visible: "{{ is_state('media_player.itunes', 'playing') }}"
+  - service: group.set_visibility
+    entity_id: group.apple_tv
+    data_template:
+      visible: "{{ is_state('media_player.apple_tv_3', 'playing') }}"
+  - service: input_select.select_option
+    data_template:
+      entity_id: input_select.his_status_dropdown
+      option: >
+        {% if states.device_tracker.kevins_iphone.state == 'home' %}
+          Home
+        {% else %}
+          Away
+        {% endif %}
+  - service: input_select.select_option
+    data_template:
+      entity_id: input_select.her_status_dropdown
+      option: >
+        {% if states.device_tracker.angelis_iphone.state == 'home' %}
+          Home
+        {% else %}
+          Away
+        {% endif %}
+  - service: group.set_visibility
+    data_template:
+      entity_id: group.pihole
+      visible: "{{ states('sensor.pihole_ads_blocked_today') }}"
+
+- id: show_pihole
+  alias: Show PiHole
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.pihole_ads_blocked_today
+    above: 0
+  action:
+  - service: group.set_visibility
+    entity_id: group.pihole
+    data_template:
+      visible: True

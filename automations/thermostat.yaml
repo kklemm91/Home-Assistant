@@ -1,8 +1,9 @@
 - id: fan_follows_heat
   alias: Fan on when heat on
   trigger:
-  - platform: template
-    value_template: "{{ states.climate.ecobee.attributes.fan == 'on' }}"
+  - platform: state
+    entity_id: sensor.ecobee
+    to: 'on'
   action:
   - service: switch.turn_on
     entity_id: switch.fan
@@ -10,8 +11,59 @@
 - id: fan_follows_heat_off
   alias: Fan off when heat off
   trigger:
-  - platform: template
-    value_template: "{{ states.climate.ecobee.attributes.fan == 'off' }}"
+  - platform: state
+    entity_id: sensor.ecobee
+    to: 'off'
+    for:
+      minutes: 10
   action:
   - service: switch.turn_off
     entity_id: switch.fan
+
+- id: vacuum_loud
+  alias: Vacuum Loud
+  trigger:
+  - platform: state
+    entity_id: vacuum.vacuum
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: sensor.his_status
+      state: Away
+    - condition: state
+      entity_id: sensor.her_status
+      state: Away
+  action:
+  - service: vacuum.set_fanspeed
+    entity_id: vacuum.vacuum
+    data:
+      fanspeed: 'turbo'
+
+- id: vacuum_quiet
+  alias: Vacuum Quiet
+  trigger:
+  - platform: state
+    entity_id: vacuum.vacuum
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.his_status
+      state: Home
+    - condition: state
+      entity_id: sensor.her_status
+      state: Home
+    - condition: state
+      entity_id: sensor.his_status
+      state: Sleeping
+    - condition: state
+      entity_id: sensor.her_status
+      state: Sleeping
+  action:
+  - service: vacuum.set_fanspeed
+    entity_id: vacuum.vacuum
+    data:
+      fanspeed: 'balanced'

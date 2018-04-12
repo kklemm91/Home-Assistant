@@ -1,5 +1,5 @@
 - platform: unifi
-  username: !secret icloud_username
-  password: !secret myusps_password
+  username: !secret email
+  password: !secret http_password
   verify_ssl: false
   track_new_devices: false

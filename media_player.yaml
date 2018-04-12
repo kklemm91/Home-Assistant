@@ -1,15 +1,15 @@
 - platform: itunes
   host: !secret fractal_ip
 
-# - platform: kodi
-#   name: Kodi  
-#   host: !secret synapse_ip
+- platform: kodi
+  name: Kodi  
+  host: !secret synapse_ip
+  port: 8181
+  enable_websocket: false
 
 # - platform: plex
 #   show_all_controls: true
 #   scan_interval: 5
-
-# - platform: cast
 
 # - platform: vlc
 #   name: VLC

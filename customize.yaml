@@ -4,7 +4,11 @@ group.server_view:
   order: 2
 climate.ecobee:
   friendly_name: Thermostat
-  icon: mdi:oil-temperature
+  icon: mdi:thermostat-box
+# media_player.itunes:
+#   hidden: True
+# media_player.apple_tv_3:
+#   hidden: True
 sensor.ecobee_temperature:
   friendly_name: Temperature
   icon: mdi:temperature-fahrenheit
@@ -14,7 +18,7 @@ sensor.ecobee_humidity:
 weather.ecobee:
   friendly_name: Temperature
 device_tracker.ecobee:
-  icon: mdi:oil-temperature
+  icon: mdi:gauge
 weather.temperature:
   friendly_name: Temperature
 sensor.packages_in_transit:
@@ -32,9 +36,10 @@ sensor.bitcoin:
   icon: mdi:currency-btc
   unit_of_measurement: USD
 sensor.ethereum_2:
+  icon: mdi:ethereum
   unit_of_measurement: BTC
 sensor.ethereum:
-  icon: mdi:diamond
+  icon: mdi:ethereum
   unit_of_measurement: USD
 sensor.litecoin:
   icon: mdi:star-circle
@@ -42,6 +47,7 @@ sensor.glances_disk_used:
   friendly_name: Disk Usage
 sensor.glances_ram_used:
   friendly_name: Memory Usage
+  icon: mdi:chip
 binary_sensor.google:
   hidden: true
 sensor.his_status:
@@ -61,10 +67,12 @@ binary_sensor.router:
 sensor.router:
   friendly_name: 'Router'
   icon: mdi:ethernet
+device_tracker.vacuum:
+  icon: mdi:roomba
 device_tracker.synology:
   icon: mdi:server
 device_tracker.synapse:
-  icon: mdi:video-input-hdmi
+  icon: mdi:dns
 device_tracker.kevins_iphone:
   friendly_name: !secret his_name
 device_tracker.angelis_iphone:
@@ -72,9 +80,15 @@ device_tracker.angelis_iphone:
 device_tracker.fractal_ethernet:
   icon: mdi:desktop-classic
 device_tracker.echo_spot:
-  icon: mdi:stop-circle
+  icon: mdi:amazon
+device_tracker.apple_tv:
+  icon: mdi:apple
 device_tracker.google_home:
   icon: mdi:dots-horizontal-circle
+device_tracker.hue_bridge:
+  icon: mdi:flash-circle
+device_tracker.neuron:
+  icon: mdi:raspberrypi
 sensor.dark_sky_summary:
   icon: mdi:weather-cloudy
   friendly_name: Summary
@@ -95,21 +109,23 @@ sensor.weather_visibility:
   friendly_name: Visibility
 sensor.solar_angle:
   icon: mdi:weather-sunset-up
+sensor.next_game:
+  icon: mdi:hockey-sticks
 switch.corner:
-  icon: mdi:fridge
+  icon: mdi:fridge-filled
 switch.fan:
   icon: mdi:fan
 light.hallway:
-  icon: mdi:ceiling-light
+  icon: mdi:white-balance-incandescent
 light.kitchen:
   icon: mdi:ceiling-light
 light.computer:
-  icon: mdi:monitor
+  icon: mdi:desktop-classic
 light.office:
   icon: mdi:flower
 light.television:
   friendly_name: Television
-  icon: mdi:ceiling-light
+  icon: mdi:white-balance-incandescent
 light.hyperion:
   icon: mdi:television-guide
 light.bedroom:
@@ -125,7 +141,8 @@ binary_sensor.aurora_visibility:
 sensor.usps_mail:
   unit_of_measurement: packages
 sensor.current_version:
-  friendly_name: Home Assistant
+  icon: mdi:home-assistant
+  friendly_name: Version
 sensor.since_last_boot:
   friendly_name: Uptime
 sensor.ipv4_address_eth0:

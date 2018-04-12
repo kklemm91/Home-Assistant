@@ -5,7 +5,7 @@ his_status_dropdown:
     - Home
     - Just Left
     - Away
-  initial: Home
+  initial: Away
 
 her_status_dropdown:
   name: !secret her_name
@@ -14,4 +14,4 @@ her_status_dropdown:
     - Home
     - Just Left
     - Away
-  initial: Home
+  initial: Away

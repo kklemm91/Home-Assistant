@@ -1,81 +1,35 @@
-- id: welcome
-  alias: Welcome light control
+- id: house_occupied
+  alias: House occupied light control
   trigger:
   - platform: state
-    entity_id: light.entry_front
-    from: 'off'
-    to: 'on'
-  condition:
-  - condition: state
     entity_id: sensor.his_status
-    state: Away
-  - condition: state
+    from: Away
+    to: Home
+  - platform: state
     entity_id: sensor.her_status
-    state: Away
+    from: Away
+    to: Home
+  condition:
   - condition: time
     after: '15:00:00'
-    before: '23:59:59'
+    before: '03:00:00'
+  - condition: template
+    value_template: "{{ states.sensor.his_status.state != 'Sleeping' }}"
+  - condition: template
+    value_template: "{{ states.sensor.her_status.state != 'Sleeping' }}"
   action:
   - service: scene.turn_on
     entity_id: scene.living_on
   - service: scene.turn_on
-    entity_id: scene.bedroom_on
-  - service: scene.turn_on
     entity_id: scene.office_on
-  - service: logbook.log
+  - service: scene.turn_on
+    entity_id: scene.bedroom_on
+  - service: climate.set_away_mode
     data:
-      message: 'Welcome home'
-
-- id: living_light_presence
-  alias: Living light presence control
-  trigger:
-  - platform: state
-    entity_id: sensor.his_status
-    to: Home
-  - platform: state
-    entity_id: sensor.her_status
-    to: Home
-  condition:
-  - condition: time
-    after: '15:00:00'
-    before: '23:59:59'
-  action:
-  - service: scene.turn_on
-    entity_id: scene.living_on
-
-- id: office_light_presence
-  alias: Office light presence control
-  trigger:
-  - platform: state
-    entity_id: sensor.his_status
-    to: Home
-  - platform: state
-    entity_id: sensor.her_status
-    to: Home
-  condition:
-  - condition: time
-    after: '15:00:00'
-    before: '23:59:59'
-  action:
-  - service: scene.turn_on
-    entity_id: scene.office_on
-
-- id: bedroom_light_presence
-  alias: Bedroom light presence control
-  trigger:
-  - platform: state
-    entity_id: sensor.his_status
-    to: Home
-  - platform: state
-    entity_id: sensor.her_status
-    to: Home
-  condition:
-  - condition: time
-    after: '16:00:00'
-    before: '22:00:00'
-  action:
-  - service: scene.turn_on
-    entity_id: scene.bedroom_on
+      entity_id: climate.ecobee
+      away_mode: 'off'
+  - service: vacuum.turn_off
+    entity_id: vacuum.vacuum
 
 - id: house_empty
   alias: House empty light control
@@ -100,3 +54,9 @@
   action:
   - service: scene.turn_on
     entity_id: scene.all_off
+  - service: climate.set_away_mode
+    data:
+      entity_id: climate.ecobee
+      away_mode: 'on'
+  - service: vacuum.turn_on
+    entity_id: vacuum.vacuum
